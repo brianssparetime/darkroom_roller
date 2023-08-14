@@ -1,0 +1,8 @@
+Version 1 board (2023-08-13)
+
+
+Version 2 board (2023-08-13):
+ - analog pins A6 and A7 cannot be used as digital
+ - Moved ST-DIR and HALL to A0 and A1 instead
+ - changed multiplier 10s to 5s
+ - updated version number
