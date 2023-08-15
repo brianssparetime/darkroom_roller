@@ -1,7 +1,8 @@
 #pragma once
 #include "Arduino.h"
 #include "buzzer.h"
-
+#include "Leds.h"
+#define LEDS
 
 uint8_t Buzzer::_pin = 0;
 uint16_t Buzzer::_stop_time = 0;
@@ -25,12 +26,18 @@ void Buzzer::buzz() {
 
 void Buzzer::buzz(uint16_t duration_ms) {
     cancel();
+    #ifdef LEDS
+      Leds::allon()
+    #endif
     _stop_time = millis() + duration_ms;
     digitalWrite(_pin, HIGH);
 }
 
 void Buzzer::cancel() {
     digitalWrite(_pin, LOW);
+    #ifdef LEDS
+      Leds::off()
+    #endif
     _stop_time = 0;
     _reps = 0;
     _offtime = 0;
@@ -51,8 +58,10 @@ void Buzzer::update() {
     }
 
     if(_mode == SEQ) {
-        _reps += (uint8_t) !_pin_state; // add 1 when _pin_state is off at end of cycle
-
+        _reps -= (uint8_t) !_pin_state; // add 1 when _pin_state is off at end of cycle
+        if(_reps == 0) {
+            cancel();
+            return;
     }
 
     // seq or cont

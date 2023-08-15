@@ -122,6 +122,7 @@ void UI_Interval_Set::handle_button_press() {
 
 void UI_Interval_Set::handle_button_long_press() {
     #ifdef DEBUG
+      // TODO:  get rid of String()
       Serial.println("UI Interval Set long press:  new interval set to " + String(_new_interval_selected));
     #endif
     Buzzer::buzz(BUZZ_L);
