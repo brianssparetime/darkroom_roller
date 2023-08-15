@@ -12,8 +12,7 @@ class Hall {
         static void update();
     private:
         static volatile long unsigned _last_debounce;
-        static volatile bool _new_dir;
-        static bool _dir;
+        static volatile bool _rise;
 };
 
 

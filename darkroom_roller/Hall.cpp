@@ -5,8 +5,7 @@
 
 
 volatile long unsigned Hall::_last_debounce = 0;
-volatile bool Hall::_new_dir = false;
-bool Hall::_dir = false;
+volatile bool Hall::_rise = false;
 
 
 void Hall::init() {
@@ -29,12 +28,12 @@ void Hall::start_isr() {
         return;
     }
     _last_debounce = now;
-    _new_dir = !_new_dir;
+    _rise = true;
 }
 
 void Hall::update() {
-    if(_dir != _new_dir){
-        _dir = _new_dir;
+    if(_rise) {
+        _rise = false;
         Stepper::rotation();
     }
 
