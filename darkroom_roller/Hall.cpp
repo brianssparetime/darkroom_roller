@@ -35,7 +35,7 @@ void Hall::start_isr() {
 void Hall::update() {
     if(_dir != _new_dir){
         _dir = _new_dir;
-        Stepper::reverse();
+        Stepper::rotation();
     }
 
 }

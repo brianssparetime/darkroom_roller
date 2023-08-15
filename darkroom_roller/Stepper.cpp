@@ -7,6 +7,7 @@
 
 AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
+uint8_t _rotations = 0;
 
 
 void Stepper::init() {
@@ -39,6 +40,13 @@ void Stepper::go() {
 void Stepper::stop() {
    stepper.setSpeed(0);
    // consider putting sleep true here
+}
+
+void Stepper::rotation() {
+   _rotations++;
+   if(_rotations == _rotations_before_reverse) {
+      reverse();
+   }
 }
 
 void Stepper::reverse() {
