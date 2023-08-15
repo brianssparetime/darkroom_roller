@@ -16,10 +16,7 @@
 
 //buzzer
 #define BUZZER_PIN 9
-#define BUZZ_S 100
-#define BUZZ_M 250
-#define BUZZ_L 500
-#define BUZZ_XL 1500
+
 
 // stepper
 #define ST_DIR A0
