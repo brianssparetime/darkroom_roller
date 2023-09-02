@@ -1,8 +1,16 @@
 Version 1 board (2023-08-13)
 
 
-Version 2 board (2023-08-13):
+Version 2 board (2023-08-__):
  - analog pins A6 and A7 cannot be used as digital
- - Moved ST-DIR and HALL to A0 and A1 instead
+    - Moved ST-DIR and HALL to A0 and A1 instead
  - changed multiplier 10s to 5s
+ - reverse order of connectors for 4 dgit display
+ - added additional labels for hall effect sensor
+ - added i2c header
+   - dropped pad for A4
+   - moved ST-STEP from A5 to D10
+ - TODO:  consider adding header & PU resistor for start Button
+ - TODO:  check that stepper actually works with the header I have
+
  - updated version number
