@@ -21,6 +21,9 @@ void RHTimer::start() {
     // check for overflow!
     if(_target_time < now) { 
         _millis_overflow = true;
+        #ifdef DEBUG
+          Serial.println("_millis_overflow true");
+        #endif DEBUG
     } else { 
         _millis_overflow = false;
     }
@@ -37,6 +40,10 @@ void RHTimer::start(uint16_t interval) {
 
 
 void RHTimer::update() {
+    #ifdef DEBUG
+      Serial.println("timer update");
+    #endif DEBUG
+
     if(_disabled) {
         return;
     }
