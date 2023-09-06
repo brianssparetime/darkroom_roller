@@ -109,6 +109,7 @@ void UI_Interval_Set::activate() {
     }
     Display::display(ci);
     _new_interval_selected = ci;
+    Buzzer::buzz(BUZZ_M);
 }
 
 void UI_Interval_Set::handle_button_press() {
@@ -117,7 +118,7 @@ void UI_Interval_Set::handle_button_press() {
     #endif
     Leds::nextMult();
     Leds::update();
-    Buzzer::buzz(BUZZ_M);
+    Buzzer::buzz(BUZZ_S);
 }
 
 void UI_Interval_Set::handle_button_long_press() {
@@ -125,9 +126,9 @@ void UI_Interval_Set::handle_button_long_press() {
       // TODO:  get rid of String()
       Serial.println("UI Interval Set long press:  new interval set to " + String(_new_interval_selected));
     #endif
-    Buzzer::buzz(BUZZ_L);
+    // buzz in the new state
     RHTimer::start(_new_interval_selected);
-    Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
+    Machine::changeState(static_cast<UI_State *>(new UI_Active()));
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
@@ -161,7 +162,7 @@ void UI_Active::activate() {
     #ifdef DEBUG
       Serial.println("UI Active activated");
     #endif
-    Buzzer::buzz(BUZZ_L);
+    Buzzer::buzz(BUZZ_XL);
     Stepper::go();
 }
 

@@ -95,5 +95,6 @@ void RHTimer::alarm() {
     Buzzer::buzz(BUZZ_XL);
     Display::zeroes();
     // TODO consider flashing all 3 multiplier LEDS for visual!
+    // TODO add delay here so buzzer has time to sound...
     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
 }

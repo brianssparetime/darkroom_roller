@@ -1,18 +1,12 @@
 #pragma once
 #include "Arduino.h"
 
-// to match PCB from darkroom timer
-
-// LCD uses I2C SDA / SCL on A4 and A5
 
 // rotary encoder
 #define RE_BUT_PIN 6
 #define RE_A_PIN 7
 #define RE_B_PIN 8
 
-//empty sensor, indicator
-//#define LOW_SENSOR_PIN 5
-//pinmode(LOW_SENSOR_PIN, INPUT);
 
 //buzzer
 #define BUZZER_PIN 9
@@ -35,10 +29,9 @@
 #define LED_B 3
 #define LED_C 4
 #define NUM_LEDS 3
-#define MAX_INTERVAL 3600 // seconds
 
 
-
+#define MAX_INTERVAL 3600 // 1 hour; in seconds
 
 
 namespace Globals {
