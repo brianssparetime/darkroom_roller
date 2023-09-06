@@ -7,7 +7,7 @@
 
 AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
-uint8_t _rotations = 0;
+uint8_t Stepper::_rotations = 0;
 
 
 void Stepper::init() {
@@ -34,6 +34,7 @@ void Stepper::sleep(bool b) {
 void Stepper::go() {
    sleep(false); // awaken
    delay(2); // to let A4988 reawaken
+   _rotations = 0;
    stepper.setSpeed(_max_speed);
 }
 

@@ -42,7 +42,7 @@ void Leds::nextMult() {
 
 void Leds::all_on() {
     for (uint8_t i = 0; i < NUM_LEDS; i++) {
-        digitalWrite(i, HIG);
+        digitalWrite(i, HIGH);
     }
 }
 void Leds::off() {

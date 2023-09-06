@@ -27,7 +27,7 @@ void Buzzer::buzz() {
 void Buzzer::buzz(uint16_t duration_ms) {
     cancel();
     #ifdef LEDS
-      Leds::allon()
+      Leds::all_on();
     #endif
     _stop_time = millis() + duration_ms;
     digitalWrite(_pin, HIGH);
@@ -36,7 +36,7 @@ void Buzzer::buzz(uint16_t duration_ms) {
 void Buzzer::cancel() {
     digitalWrite(_pin, LOW);
     #ifdef LEDS
-      Leds::off()
+      Leds::off();
     #endif
     _stop_time = 0;
     _reps = 0;
@@ -62,6 +62,7 @@ void Buzzer::update() {
         if(_reps == 0) {
             cancel();
             return;
+        }
     }
 
     // seq or cont

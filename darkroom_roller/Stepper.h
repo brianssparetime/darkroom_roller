@@ -20,6 +20,6 @@ class Stepper {
         static const float _max_speed = 128; // TODO test and fixme
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static const uint8_t _rotations_before_reverse = 3;
-        static const uint8_t _rotations;
+        static uint8_t _rotations;
 };
 
