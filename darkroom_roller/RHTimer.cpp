@@ -16,7 +16,7 @@ bool RHTimer::_disabled = true;
 void RHTimer::start() {
     _disabled = false;
     unsigned long now = millis();
-    _target_time = now + _cur_interval * 1000UL;
+    _target_time = now + (unsigned long)_cur_interval * 1000UL;
     
     // check for overflow!
     if(_target_time < now) { 
@@ -28,7 +28,7 @@ void RHTimer::start() {
     #endif DEBUG
 }
 
-void RHTimer::start(uint8_t interval) {
+void RHTimer::start(uint16_t interval) {
     _cur_interval = interval; // seconds
     start();
 }
@@ -60,6 +60,9 @@ uint16_t RHTimer::get_current_interval() {
 }
 
 uint16_t RHTimer::get_s_remaining() {
+    if(_disabled == true) {
+        return 0;
+    }
     if(_millis_overflow) {
         // TODO check if this actually works
 
@@ -92,9 +95,9 @@ void RHTimer::alarm() {
     disable();
     Stepper::stop();
     Stepper::sleep(true);
-    Buzzer::buzz(BUZZ_XL);
     Display::zeroes();
     // TODO consider flashing all 3 multiplier LEDS for visual!
     // TODO add delay here so buzzer has time to sound...
+        // buzz in new state  for now
     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
 }

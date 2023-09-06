@@ -6,7 +6,7 @@
 class RHTimer {
     public:
         static void start();
-        static void start(uint8_t interval);
+        static void start(uint16_t interval);
         static uint16_t get_s_remaining();
         static void update();
         static void disable();

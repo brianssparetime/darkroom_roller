@@ -76,7 +76,7 @@ void UI_Welcome::activate() {
       Serial.println(F("UI Welcome activated"));
     #endif
     _start = millis();
-    Buzzer::buzz(BUZZ_L);
+    Buzzer::buzz(BUZZ_M);
     Display::zeroes();
 
 }
@@ -109,7 +109,7 @@ void UI_Interval_Set::activate() {
     }
     Display::display(ci);
     _new_interval_selected = ci;
-    Buzzer::buzz(BUZZ_M);
+    Buzzer::buzz(BUZZ_XL);
 }
 
 void UI_Interval_Set::handle_button_press() {
@@ -177,10 +177,10 @@ void UI_Active::handle_rotation(int delta) {
 
 // disable going inactive!
 void UI_Active::update() {
+    RHTimer::update();
     Stepper::update();
     Display::display(RHTimer::get_s_remaining()+1);
     Leds::update();
-    RHTimer::update();
     Hall::update();
 }
 
