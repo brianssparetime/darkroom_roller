@@ -35,7 +35,7 @@ void RHTimer::start(uint16_t interval) {
 
 
 void RHTimer::update() {
-    if(_disabled = true) {
+    if(_disabled == true) {
         return;
     }
 
