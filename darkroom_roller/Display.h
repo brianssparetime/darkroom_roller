@@ -10,7 +10,6 @@ class Display {
         static void update();
         static void zeroes();
         static void display(uint16_t s);
-        static void setDot(uint8_t u);
         static void dim();
 
     private:
