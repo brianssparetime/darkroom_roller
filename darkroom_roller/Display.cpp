@@ -22,7 +22,7 @@ void Display::zeroes() {
     for(uint8_t i = 0; i < 4; i++) {
         tm.display(i,0);
     }
-    tm.point(1); // what does this do?
+    tm.point(1); // turns on the colon between digits
 }
 
 
@@ -31,10 +31,6 @@ void Display::update() {
 
 void Display::display(uint16_t s) {
     displayTimeSeg(s);
-}
-
-void Display::setDot(uint8_t u) {
-    // TODO IMPLEMENT!
 }
 
 void Display::dim() {
