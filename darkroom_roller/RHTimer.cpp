@@ -21,6 +21,8 @@ void RHTimer::start() {
     // check for overflow!
     if(_target_time < now) { 
         _millis_overflow = true;
+    } else { 
+        _millis_overflow = false;
     }
 
     #ifdef DEBUG
@@ -35,7 +37,7 @@ void RHTimer::start(uint16_t interval) {
 
 
 void RHTimer::update() {
-    if(_disabled == true) {
+    if(_disabled) {
         return;
     }
 
@@ -50,7 +52,6 @@ void RHTimer::update() {
     } else {
         if(millis() > _target_time) {
             alarm();
-            return;
         }
     }
 }
@@ -60,7 +61,7 @@ uint16_t RHTimer::get_current_interval() {
 }
 
 uint16_t RHTimer::get_s_remaining() {
-    if(_disabled == true) {
+    if(_disabled) {
         return 0;
     }
     if(_millis_overflow) {

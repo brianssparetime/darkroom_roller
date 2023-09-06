@@ -49,7 +49,7 @@ void Stepper::rotation() {
    // TODO:  need a cooldown here to prevent reactivation!
    _rotations++;
    if(_rotations == _rotations_before_reverse) {
-      rotations = 0;
+      _rotations = 0;
       reverse();
    }
 }

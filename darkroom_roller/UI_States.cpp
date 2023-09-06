@@ -132,13 +132,12 @@ void UI_Interval_Set::handle_button_long_press() {
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
-    uint16_t m = Leds::getMult();
     if(delta > 0) {
         if (_new_interval_selected + m > MAX_INTERVAL) { // selection greater than max
             Buzzer::buzz(BUZZ_L);
         } else {
             Buzzer::buzz(BUZZ_S);
-            _new_interval_selected += m; 
+            _new_interval_selected += Leds::getMult(); 
         }
     } else if (delta < 0) {
         if(m > _new_interval_selected) {
@@ -179,8 +178,8 @@ void UI_Active::handle_rotation(int delta) {
 void UI_Active::update() {
     RHTimer::update();
     Stepper::update();
-    Display::display(RHTimer::get_s_remaining()+1);
-    Leds::update();
+    Display::display(RHTimer::get_s_remaining());
+    //Leds::update();
     Hall::update();
 }
 
