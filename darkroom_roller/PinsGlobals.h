@@ -14,7 +14,7 @@
 
 // stepper
 #define ST_DIR A0
-#define ST_STEP  A5
+#define ST_STEP  10
 #define ST_SLP 5
 
 // hall
