@@ -17,7 +17,7 @@ class UI_State {
         virtual void handle_button_long_release();
         virtual void handle_rotation(int delta);
     private:
-        static const unsigned int _inactive_timeout = 5 * 1000; 
+        static const unsigned uint16_t _inactive_timeout = 5 * 1000; 
         // unsigned int maxes at 65535
 
 };

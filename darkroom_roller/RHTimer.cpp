@@ -40,10 +40,6 @@ void RHTimer::start(uint16_t interval) {
 
 
 void RHTimer::update() {
-    #ifdef DEBUG
-      Serial.println("timer update");
-    #endif DEBUG
-
     if(_disabled) {
         return;
     }
