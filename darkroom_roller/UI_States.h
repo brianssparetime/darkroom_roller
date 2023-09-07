@@ -64,12 +64,12 @@ class UI_Active : public UI_State {
 };
 
 
-class UI_Inactive : public UI_State {
-    public:
-        virtual void activate();
-        virtual void handle_button_press();
-        virtual void handle_rotation(int delta);
-        virtual void update();
-    private:
-        unsigned long _start;
-};
+// class UI_Inactive : public UI_State {
+//     public:
+//         virtual void activate();
+//         virtual void handle_button_press();
+//         virtual void handle_rotation(int delta);
+//         virtual void update();
+//     private:
+//         unsigned long _start;
+// };

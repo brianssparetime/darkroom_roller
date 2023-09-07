@@ -26,7 +26,7 @@ void UI_State::update() {
         #ifdef DEBUG
         Serial.println("going inactive!");
         #endif
-        Machine::changeState(static_cast<UI_State *>(new UI_Inactive()));
+        //Machine::changeState(static_cast<UI_State *>(new UI_Inactive()));
     } 
 }
 
@@ -104,8 +104,8 @@ void UI_Interval_Set::activate() {
       Serial.println("UI Interval Set activated");
     #endif
     uint16_t ci = RHTimer::get_current_interval();
-    Display::display(ci);
     _new_interval_selected = ci;
+    Display::display(ci);
     Buzzer::buzz(BUZZ_XL);
 }
 
@@ -206,25 +206,25 @@ UI_Active::~UI_Active() {
 //     }
 // }
 
-void UI_Inactive::activate() {
-    #ifdef DEBUG
-      Serial.println("UI Inactive activated");
-    #endif
-    Buzzer::buzz(BUZZ_S);
-    Display::dim();
-    Leds::off();
-    Stepper::sleep(true);
-}
+// void UI_Inactive::activate() {
+//     #ifdef DEBUG
+//       Serial.println("UI Inactive activated");
+//     #endif
+//     Buzzer::buzz(BUZZ_S);
+//     Display::dim();
+//     Leds::off();
+//     Stepper::sleep(true);
+// }
 
-void UI_Inactive::handle_button_press() {
-    Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
-}
-void UI_Inactive::handle_rotation(int delta) { 
-    Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
-}
+// void UI_Inactive::handle_button_press() {
+//     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
+// }
+// void UI_Inactive::handle_rotation(int delta) { 
+//     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
+// }
 
-void UI_Inactive::update() {
-    // Note:  because this doesn't explicitly call UI_State::update(), that method is overridden
-    // and not invoked from here, so we don't have to worry about constantly changing to Inactive
-}
+// void UI_Inactive::update() {
+//     // Note:  because this doesn't explicitly call UI_State::update(), that method is overridden
+//     // and not invoked from here, so we don't have to worry about constantly changing to Inactive
+// }
 
