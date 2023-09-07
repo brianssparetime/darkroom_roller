@@ -104,9 +104,6 @@ void UI_Interval_Set::activate() {
       Serial.println("UI Interval Set activated");
     #endif
     uint16_t ci = RHTimer::get_current_interval();
-    if(ci == 0) {
-        ci = Globals::default_interval;
-    }
     Display::display(ci);
     _new_interval_selected = ci;
     Buzzer::buzz(BUZZ_XL);
@@ -132,7 +129,7 @@ void UI_Interval_Set::handle_button_long_press() {
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
-    uint8_t m = Leds::getMult();
+    uint16_t m = Leds::getMult();
     if(delta > 0) {
         if (_new_interval_selected + m > MAX_INTERVAL) { // selection greater than max
             Buzzer::buzz(BUZZ_L);
