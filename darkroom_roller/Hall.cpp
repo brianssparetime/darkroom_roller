@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "Stepper.h"
 #include "Hall.h"
+#include "Buzzer.h"
 
 
 
@@ -35,6 +36,7 @@ void Hall::update() {
     if(_rise) {
         _rise = false;
         Stepper::rotation();
+        Buzzer::buzz(BUZZ_S);
     }
 
 }

@@ -27,13 +27,13 @@ void Stepper::sleep(bool b) {
       digitalWrite(ST_SLP, LOW); // put driver to sleep
    } else {
       digitalWrite(ST_SLP, HIGH); // awaken driver 
+      delay(20); // to let A4988 reawaken
    }
 }
 
 
 void Stepper::go() {
    sleep(false); // awaken
-   delay(20); // to let A4988 reawaken
    _rotations = 0;
    stepper.setSpeed(_max_speed);
    stepper.runSpeed();
