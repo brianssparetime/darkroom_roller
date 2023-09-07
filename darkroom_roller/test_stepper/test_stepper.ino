@@ -1,5 +1,5 @@
 #include "Arduino.h" 
-
+#include <AccelStepper.h>
 
 // when uncommented, serial debug output is enabled; 
 //    but this causes some instability (possible memory issues)!
@@ -14,7 +14,8 @@
 #define ST_SLP 5
 
 
-
+AccelStepper stepper(1, ST_STEP, ST_DIR);
+const float _max_speed = 100;
 void setup() {
     
     #ifdef DEBUG 
@@ -22,7 +23,7 @@ void setup() {
       Serial.println("online");
     #endif
 
-    AccelStepper stepper(1, ST_STEP, ST_DIR);
+
     pinMode(ST_SLP, OUTPUT);
     digitalWrite(ST_SLP, HIGH);
     stepper.setMaxSpeed(_max_speed);
