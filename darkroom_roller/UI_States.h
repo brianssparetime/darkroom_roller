@@ -49,6 +49,7 @@ class UI_Interval_Set : public UI_State {
         virtual void handle_button_press();
         virtual void handle_button_long_press();
         virtual void handle_rotation(int delta);
+        virtual void update();
     private:
         uint16_t _new_interval_selected;
     

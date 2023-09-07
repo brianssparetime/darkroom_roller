@@ -100,9 +100,9 @@ void RHTimer::alarm() {
     disable();
     Stepper::stop();
     Stepper::sleep(true);
-    Display::zeroes();
+    //Display::zeroes();
     // TODO consider flashing all 3 multiplier LEDS for visual!
-    // TODO add delay here so buzzer has time to sound...
+    // Reminder:  buzzer and led actions persist across states!
         // buzz in new state  for now
     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
 }

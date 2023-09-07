@@ -10,6 +10,7 @@
 #include "Stepper.h"
 #include "Hall.h"
 #include "Buzzer.h"
+#include "Leds.h"
 
 
 // when uncommented, serial debug output is enabled; 
@@ -50,17 +51,13 @@ REWrapper rew = REWrapper( &encoder);
     // rotary encoder
     EncoderInterrupt.begin( &encoder );
 
-    // display
     Display::init();
-
-    // stepper
     Stepper::init();
-
+    Leds::init();
 
     // default states
     Machine::init();
     Machine::changeState(new UI_Welcome());
-    RHTimer::start();
     #ifdef DEBUG 
       Serial.println("finished setup");
     #endif 

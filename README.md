@@ -6,11 +6,10 @@ Arduino Nano project to drive a stepper motor on a timer, for making darkroom pr
 
  - fix led resistors so they show up (330->220?)
  - why stepper no work?
-    - bad wiring?
+    - bad wiring?  Looks ok
     - burned out board?
-    - bad connection to motor?
-    - bad code?
+    - bad connection to motor? no
+    - bad code?  I don't think so....
 
- - potential bug with alarm() not being called
+ - potential bug with timer not fully reseting
 
- - make delayed state transition (so leds/buzzer can finish first)

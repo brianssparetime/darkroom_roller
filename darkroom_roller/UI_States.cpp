@@ -78,6 +78,7 @@ void UI_Welcome::activate() {
     _start = millis();
     Buzzer::buzz(BUZZ_M);
     Display::zeroes();
+    Leds::all_on();
 
 }
 
@@ -100,13 +101,18 @@ void UI_Welcome::update() {
 
 
 void UI_Interval_Set::activate() {
-    #ifdef DEBUG
-      Serial.println("UI Interval Set activated");
-    #endif
     uint16_t ci = RHTimer::get_current_interval();
     _new_interval_selected = ci;
     Display::display(ci);
+    #ifdef DEBUG
+      Serial.println("UI Interval Set activated");
+      char buf[16];
+      sprintf(buf, "ci = {%3d}", ci);
+      Serial.println(buf);
+
+    #endif
     Buzzer::buzz(BUZZ_XL);
+    Leds::update();
 }
 
 void UI_Interval_Set::handle_button_press() {
@@ -149,8 +155,11 @@ void UI_Interval_Set::handle_rotation(int delta) {
     Display::display(_new_interval_selected);
 }
 
-// inherit update, which allows going inactive
-
+void UI_Interval_Set::update() {
+    Leds::update();
+    Buzzer::update();
+    // no need to update stepper, hall, or timer here
+}
 
 /*********** UI_Active *************/
 
@@ -177,7 +186,7 @@ void UI_Active::update() {
     RHTimer::update();
     Stepper::update();
     Display::display(RHTimer::get_s_remaining());
-    //Leds::update();
+    //Leds::update(); -- no need for this
     Hall::update();
 }
 
