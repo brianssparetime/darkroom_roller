@@ -2,9 +2,9 @@
 #include "Arduino.h"
 
 #define BUZZ_S 100 // ms
-#define BUZZ_M 250
-#define BUZZ_L 500
-#define BUZZ_XL 1500
+#define BUZZ_M 300
+#define BUZZ_L 600
+#define BUZZ_XL 1000
 
 enum buzzmode {SINGLE, CONT, SEQ};
 

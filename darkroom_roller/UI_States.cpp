@@ -101,15 +101,13 @@ void UI_Welcome::update() {
 
 
 void UI_Interval_Set::activate() {
-    uint16_t ci = RHTimer::get_current_interval();
-    _new_interval_selected = ci;
-    Display::display(ci);
+    _new_interval_selected = RHTimer::get_current_interval();
+    Display::display(_new_interval_selected);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
       char buf[16];
-      sprintf(buf, "ci = {%3d}", ci);
+      sprintf(buf, "nis = %3d", _new_interval_selected);
       Serial.println(buf);
-
     #endif
     Buzzer::buzz(BUZZ_XL);
     Leds::update();
