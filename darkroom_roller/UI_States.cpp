@@ -22,12 +22,12 @@
 
 
 void UI_State::update() {
-    if( millis() - Machine::get_last_action() > UI_State::_inactive_timeout ) {
-        #ifdef DEBUG
-        Serial.println("going inactive!");
-        #endif
-        //Machine::changeState(static_cast<UI_State *>(new UI_Inactive()));
-    } 
+    // if( millis() - Machine::get_last_action() > UI_State::_inactive_timeout ) {
+    //     #ifdef DEBUG
+    //     Serial.println("going inactive!");
+    //     #endif
+    //     //Machine::changeState(static_cast<UI_State *>(new UI_Inactive()));
+    // } 
 }
 
 
