@@ -11,7 +11,7 @@ uint8_t Leds::_mult_idx= 1; // unit multiplier, default 10s
 void Leds::init() {
     _mult_idx= 1; // unit multiplier, default 10s
     for (uint8_t i = 0; i < NUM_LEDS; i++) {
-        pinMode(_mult_choices[i], OUTPUT);
+        pinMode(_pins[i], OUTPUT);
     }
     update();
 }
@@ -20,9 +20,9 @@ void Leds::init() {
 void Leds::update() {
     for (uint8_t i = 0; i < NUM_LEDS; i++) {
         if (i == _mult_idx) {
-            digitalWrite(i, HIGH);
+            digitalWrite(_pins[i], HIGH);
         } else {
-            digitalWrite(i,LOW);
+            digitalWrite(_pins[i],LOW);
         }
     }
 }
@@ -42,11 +42,11 @@ void Leds::nextMult() {
 
 void Leds::all_on() {
     for (uint8_t i = 0; i < NUM_LEDS; i++) {
-        digitalWrite(i, HIGH);
+        digitalWrite(_pins[i], HIGH);
     }
 }
 void Leds::off() {
     for (uint8_t i = 0; i < NUM_LEDS; i++) {
-        digitalWrite(i, LOW);
+        digitalWrite(_pins[i], LOW);
     }
 }
