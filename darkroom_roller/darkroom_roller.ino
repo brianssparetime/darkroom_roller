@@ -38,54 +38,52 @@ REWrapper rew = REWrapper( &encoder);
   /*     ----------    S E T U P     --------- */
 
 
-  void setup() {
+void setup() {
 
-    
-    #ifdef DEBUG 
-      Serial.begin(115200);
-      Serial.println("online");
-    #endif
-
-    Buzzer::init(BUZZER_PIN);
-
-    // rotary encoder
-    EncoderInterrupt.begin( &encoder );
-
-    Display::init();
-    Stepper::init();
-    Leds::init();
-
-    // default states
-    Machine::init();
-    Machine::changeState(new UI_Welcome());
-    #ifdef DEBUG 
-      Serial.println("finished setup");
-    #endif 
+  
+  #ifdef DEBUG 
+    Serial.begin(115200);
+    Serial.println("online");
+  #endif
 
 
-  }
+  // rotary encoder
+  EncoderInterrupt.begin( &encoder );
+
+  Buzzer::init(BUZZER_PIN);
+  Display::init();
+  Stepper::init();
+  Leds::init();
+
+  // default states
+  Machine::init();
+  Machine::changeState(new UI_Welcome());
+  #ifdef DEBUG 
+    Serial.println("finished setup");
+  #endif 
 
 
-
-  /*     ----------    L O O P     --------- */
+}
 
 
 
-  void loop() {
-
-    // // update rotary encoder
-    rew.update();
-
-    //update Machine for any state auto-transitions
-    Machine::update(); 
-    
-
-    Buzzer::update();
-
-    // other updates done in UI_State::update()
+/*     ----------    L O O P     --------- */
 
 
-  } // end loop
+
+void loop() {
+
+  // // update rotary encoder
+  rew.update();
+
+  //update Machine for any state auto-transitions
+  Machine::update(); 
+  Buzzer::update();
+
+  // other updates done in UI_State::update()
+
+
+} // end loop
 
 
 

@@ -124,8 +124,10 @@ void UI_Interval_Set::handle_button_press() {
 
 void UI_Interval_Set::handle_button_long_press() {
     #ifdef DEBUG
-      // TODO:  get rid of String()
-      Serial.println("UI Interval Set long press:  new interval set to " + String(_new_interval_selected));
+      Serial.println("UI Interval Set long press:");
+      char buf[24];
+      sprintf(buf, "new interval = %3d", _new_interval_selected);
+      Serial.println(buf);
     #endif
     // buzz in the new state
     RHTimer::start(_new_interval_selected);
@@ -150,12 +152,18 @@ void UI_Interval_Set::handle_rotation(int delta) {
             Buzzer::buzz(BUZZ_S);
         }
     }
+     #ifdef DEBUG
+      Serial.println("UI Interval Set rotation:");
+      char buf[24];
+      sprintf(buf, "new interval = %3d", _new_interval_selected);
+      Serial.println(buf);
+    #endif 
     Display::display(_new_interval_selected);
 }
 
 void UI_Interval_Set::update() {
     Leds::update();
-    Buzzer::update();
+    // buzzer updates from main()
     // no need to update stepper, hall, or timer here
 }
 
@@ -179,10 +187,12 @@ void UI_Active::handle_rotation(int delta) {
         Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
 }
 
-// disable going inactive!
 void UI_Active::update() {
     RHTimer::update();
     Stepper::update();
+    #ifdef DEBUG
+      Serial.println("UI Active update():");
+    #endif
     Display::display(RHTimer::get_s_remaining());
     //Leds::update(); -- no need for this
     Hall::update();
