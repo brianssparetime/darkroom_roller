@@ -188,14 +188,16 @@ void UI_Active::handle_rotation(int delta) {
 }
 
 void UI_Active::update() {
-    RHTimer::update();
+    Display::display(RHTimer::get_s_remaining());
     Stepper::update();
     #ifdef DEBUG
       Serial.println("UI Active update():");
     #endif
-    Display::display(RHTimer::get_s_remaining());
     //Leds::update(); -- no need for this
     Hall::update();
+    RHTimer::update(); 
+    /* note RHTimer::update() can cause state change, 
+    so should come last to avoid any following code executing in wrong state post change*/
 }
 
 // turn off before exiting state
