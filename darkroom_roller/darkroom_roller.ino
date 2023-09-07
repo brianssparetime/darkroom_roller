@@ -15,7 +15,7 @@
 // when uncommented, serial debug output is enabled; 
 //    but this causes some instability (possible memory issues)!
 //    technically, I should rewrite printlns to use sprintf stringbufs instead of String()
-//#define DEBUG
+#define DEBUG
 
 
 /*
