@@ -1,7 +1,7 @@
 #pragma once
 #include "Arduino.h"
 
-#define DEBUG
+//#define DEBUG
 
 // rotary encoder
 #define RE_BUT_PIN 6

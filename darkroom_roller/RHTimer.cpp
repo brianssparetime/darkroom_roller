@@ -7,7 +7,6 @@
 
 // when uncommented, this causes watering activation each minute for rapid testing
 //#define WARP_SPEED
-#define DEBUG
 
 unsigned long RHTimer::_target_time = 0;
 uint16_t RHTimer::_cur_interval = Globals::default_interval;

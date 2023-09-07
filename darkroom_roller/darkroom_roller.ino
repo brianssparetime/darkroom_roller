@@ -14,9 +14,9 @@
 
 
 // when uncommented, serial debug output is enabled; 
-//    but this causes some instability (possible memory issues)!
-//    technically, I should rewrite printlns to use sprintf stringbufs instead of String()
-#define DEBUG
+// NOTE:  Do not use String() in debug mode - causes memory corruption.  
+// Use a buffer + sprintf
+//#define DEBUG
 
 
 /*
@@ -28,7 +28,11 @@
 
 
 
-// --------- pins -----------       see PinsGlobals.h
+//     see PinsGlobals.h
+
+
+
+
 // rotary encoder
 Encoder encoder(RE_A_PIN, RE_B_PIN, RE_BUT_PIN); // set up rotary encoder
 REWrapper rew = REWrapper( &encoder);
