@@ -23,6 +23,9 @@ void Display::zeroes() {
         tm.display(i,0);
     }
     tm.point(1); // turns on the colon between digits
+    #ifdef DEBUG
+      Serial.println("zeroes()");
+    #endif
 }
 
 
@@ -40,6 +43,11 @@ void Display::dim() {
 
 // display a value given in seconds as mm:ss on the segment display
 void Display::displayTimeSeg(uint16_t seconds) {
+    #ifdef DEBUG
+      char buf[16];
+      sprintf(buf, "disp %3d", seconds);
+      Serial.println(buf);
+    #endif
   uint8_t m = seconds / 60;
   uint8_t s = seconds % 60;
 
