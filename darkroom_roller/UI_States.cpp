@@ -136,14 +136,14 @@ void UI_Interval_Set::handle_button_long_press() {
 
 void UI_Interval_Set::handle_rotation(int delta) {
     uint16_t m = Leds::getMult();
-    if(delta > 0) {
+    if(delta < 0) {
         if (_new_interval_selected + m > MAX_INTERVAL) { // selection greater than max
             Buzzer::buzz(BUZZ_L);
         } else {
             Buzzer::buzz(BUZZ_S);
             _new_interval_selected += m;
         }
-    } else if (delta < 0) {
+    } else if (delta > 0) {
         if(m > _new_interval_selected) {
             _new_interval_selected = 0;
             Buzzer::buzz(BUZZ_L);
