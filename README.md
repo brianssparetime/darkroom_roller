@@ -14,7 +14,7 @@ Arduino Nano project to drive a stepper motor on a timer, for making darkroom pr
 ### Electronics:
  - TM1637 4 digit 7 segment display
  - piezo buzzer
- - rotary encoder
+ - KY-040 rotary encoder
  - hall effect sensor
  - A4988 or compatible stepper driver
  - Nema 17 or similar stepper motor
