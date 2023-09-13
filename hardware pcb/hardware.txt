@@ -11,6 +11,6 @@ Version 2 board (2023-08-__):
    - dropped pad for A4 (needed for i2c)
    - moved ST-STEP from A5 (needed for i2c) to D10
  - added trace from A4988's reset to 5v
- - TODO:  consider adding header & PU resistor for start Button
+ - added PU resistor and debounce cap for pin A5 / SDA to use it as a start button
 
  - updated version number
