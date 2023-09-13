@@ -26,6 +26,6 @@ coming soon!
 
 ## Software
 
-Code is based on my PlantWaterBot, using a state machine and separate files for each
+Code is based on my [PlantWaterBot](https://github.com/brianssparetime/PlantWaterBot), using a state machine and separate files for each
 sensor/device to keep things organized and extendable.
 
