@@ -13,7 +13,8 @@ uint8_t Stepper::_rotations = 0;
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
    stepper.setMaxSpeed(_max_speed);
-   sleep(true);
+   stepper.setAcceleration(20); // TESTING
+   _sleep(true);
 }
 
 
@@ -21,19 +22,19 @@ void Stepper::update() {
    stepper.runSpeed();
 }
 
-void Stepper::sleep(bool b) {
+void Stepper::_sleep(bool b) {
    if(b) {
-      stop();
+      delay(100); // to let A4988 reawaken
       digitalWrite(ST_SLP, LOW); // put driver to sleep
    } else {
       digitalWrite(ST_SLP, HIGH); // awaken driver 
-      delay(20); // to let A4988 reawaken
+      delay(100); // to let A4988 reawaken
    }
 }
 
 
 void Stepper::go() {
-   sleep(false); // awaken
+   _sleep(false); // awaken
    _rotations = 0;
    stepper.setSpeed(_max_speed);
    stepper.runSpeed();
@@ -42,7 +43,7 @@ void Stepper::go() {
 void Stepper::stop() {
    stepper.setSpeed(0);
    stepper.runSpeed();
-   // consider putting sleep true here
+   _sleep(true);
 }
 
 void Stepper::rotation() {
@@ -56,4 +57,5 @@ void Stepper::rotation() {
 
 void Stepper::reverse() {
    stepper.setSpeed(-_max_speed);
+   stepper.runSpeed();
 }

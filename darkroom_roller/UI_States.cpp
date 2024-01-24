@@ -109,7 +109,7 @@ void UI_Interval_Set::activate() {
       sprintf(buf, "nis = %3d", _new_interval_selected);
       Serial.println(buf);
     #endif
-    Buzzer::buzz(BUZZ_XL);
+    Buzzer::buzz(BUZZ_L);
     Leds::update();
 }
 
@@ -130,6 +130,7 @@ void UI_Interval_Set::handle_button_long_press() {
       Serial.println(buf);
     #endif
     // buzz in the new state
+    delay(500); // TESTING
     RHTimer::start(_new_interval_selected);
     Machine::changeState(static_cast<UI_State *>(new UI_Active()));
 }
@@ -174,7 +175,7 @@ void UI_Active::activate() {
     #ifdef DEBUG
       Serial.println("UI Active activated");
     #endif
-    Buzzer::buzz(BUZZ_XL);
+    Buzzer::buzz(BUZZ_L);
     Stepper::go();
 }
 
@@ -203,7 +204,6 @@ void UI_Active::update() {
 // turn off before exiting state
 UI_Active::~UI_Active() {
     Stepper::stop();
-    Stepper::sleep(true);
 }
 
 
@@ -232,7 +232,6 @@ UI_Active::~UI_Active() {
 //     Buzzer::buzz(BUZZ_S);
 //     Display::dim();
 //     Leds::off();
-//     Stepper::sleep(true);
 // }
 
 // void UI_Inactive::handle_button_press() {

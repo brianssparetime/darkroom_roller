@@ -1,5 +1,5 @@
 #pragma once
-#include <TM1637.h>
+#include "TM1637.h"
 #include "PinsGlobals.h"
 #include "Display.h"
 #include "Arduino.h"
@@ -40,6 +40,10 @@ void Display::dim() {
     tm.set(0);  //set brightness; 0-7(max)
 }
 
+void Display::separator(bool x) {
+  tm.point(1 ? x : 0);
+}
+
 
 // display a value given in seconds as mm:ss on the segment display
 void Display::displayTimeSeg(uint16_t seconds) {
@@ -55,5 +59,25 @@ void Display::displayTimeSeg(uint16_t seconds) {
   tm.display(3, s % 10);
   tm.display(2, s / 10 % 10);
   tm.display(1, m % 10);
-  tm.display(0, m / 10 % 10);
+  //tm.display(0, m / 10 % 10);
+  uint8_t tens_mins = m / 10 % 10;
+  if( tens_mins == 0) {
+    tm.display(0, tens_mins); 
+  } else {
+    tm.clearDigit(0);
+  }
+}
+
+
+void Display::displayDigit(uint8_t d, uint8_t v) {
+  //assert(d <= 3);
+  if(v > 9) {
+    clearDigit(d);
+  } else {
+    tm.display(d,v);
+  }
+}
+
+void Display::clearDigit(uint8_t d) {
+  tm.clearDigit(d);
 }

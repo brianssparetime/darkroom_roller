@@ -19,7 +19,7 @@ void Machine::changeState(UI_State* new_state) {
     UI_State *old_state = _instance->_current_state;
     _instance->_current_state = new_state;
     delete old_state; 
-    Buzzer::buzz(BUZZ_S);
+    //Buzzer::buzz(BUZZ_S);
     _last_action = millis();
     _instance->_current_state->activate();
 }

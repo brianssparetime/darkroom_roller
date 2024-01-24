@@ -11,7 +11,7 @@ volatile bool Hall::_rise = false;
 
 void Hall::init() {
     pinMode(HALL, INPUT); // high active
-    attachInterrupt(digitalPinToInterrupt(HALL), Hall::start_isr, RISING);
+    attachInterrupt(digitalPinToInterrupt(HALL), start_isr, RISING);
 }
 
 
@@ -31,6 +31,15 @@ void Hall::start_isr() {
     _last_debounce = now;
     _rise = true;
 }
+
+
+/* 
+
+    TODO:  implement something that adds a random delay so reverse isn't happening
+    at the same spot on the film all the time
+
+*/
+
 
 void Hall::update() {
     if(_rise) {

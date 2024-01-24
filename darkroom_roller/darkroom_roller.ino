@@ -58,6 +58,7 @@ void setup() {
   Display::init();
   Stepper::init();
   Leds::init();
+  Hall::init();
 
   // default states
   Machine::init();

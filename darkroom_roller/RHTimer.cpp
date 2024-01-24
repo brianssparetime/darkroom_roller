@@ -98,7 +98,6 @@ void RHTimer::alarm() {
     #endif DEBUG
     disable();
     Stepper::stop();
-    Stepper::sleep(true);
     //Display::zeroes();
     // TODO consider flashing all 3 multiplier LEDS for visual!
     // Reminder:  buzzer and led actions persist across states!
