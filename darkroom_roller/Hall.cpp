@@ -44,8 +44,8 @@ void Hall::start_isr() {
 void Hall::update() {
     if(_rise) {
         _rise = false;
-        Stepper::rotation();
         Buzzer::buzz(BUZZ_S);
+        Stepper::rotation();
     }
 
 }
