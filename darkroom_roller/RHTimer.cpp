@@ -5,8 +5,6 @@
 #include "Machine.h"
 #include "UI_States.h"
 
-// when uncommented, this causes watering activation each minute for rapid testing
-//#define WARP_SPEED
 
 unsigned long RHTimer::_target_time = 0;
 uint16_t RHTimer::_cur_interval = Globals::default_interval;
@@ -99,7 +97,6 @@ void RHTimer::alarm() {
     disable();
     Stepper::stop();
     //Display::zeroes();
-    // TODO consider flashing all 3 multiplier LEDS for visual!
     // Reminder:  buzzer and led actions persist across states!
         // buzz in new state  for now
     Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));

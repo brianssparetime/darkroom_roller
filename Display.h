@@ -10,10 +10,10 @@ class Display {
         static void separator(bool x);
         static void update();
         static void zeroes();
+        static void displayTime(uint8_t hours, uint8_t mins);
         static void dim();
         static void setDigit(uint8_t d, uint8_t v);
         static void displayAllDigits();
-        static void blinkDigit(uint8_t d, bool onoff);
 
     private:
         static TM1637* _disp;

@@ -8,7 +8,9 @@
 #include "Stepper.h"
 #include "Display.h"
 #include "PinsGlobals.h"
-#include "Leds.h"
+//#include "Leds.h"
+#include "TimeGlue.h"
+
 
 
 /*********** UI_State *************/
@@ -78,7 +80,7 @@ void UI_Welcome::activate() {
     _start = millis();
     Buzzer::buzz(BUZZ_M);
     Display::zeroes();
-    Leds::all_on();
+    //Leds::all_on();
 
 }
 
@@ -100,9 +102,11 @@ void UI_Welcome::update() {
 /*********** UI_Interval_Set *************/
 
 
+int8_t UI_Interval_Set::_edit_values[3] = {1,0,0};  // mm ss s
+
 void UI_Interval_Set::activate() {
-    _new_interval_selected = RHTimer::get_current_interval();
-    Display::display(_new_interval_selected);
+    _edit_digit = 0; // mins
+    TimeGlue::displayMSS(_edit_values);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
       char buf[16];
@@ -110,62 +114,69 @@ void UI_Interval_Set::activate() {
       Serial.println(buf);
     #endif
     Buzzer::buzz(BUZZ_L);
-    Leds::update();
+    //Leds::update();
 }
 
 void UI_Interval_Set::handle_button_press() {
     #ifdef DEBUG
       Serial.println("UI Interval Set:  short press");
     #endif
-    Leds::nextMult();
-    Leds::update();
+    //Leds::nextMult();
+    //Leds::update();
+    if (_edit_digit == 2) {
+        _edit_digit = 0;
+    } else {
+        _edit_digit++;
+    }
     Buzzer::buzz(BUZZ_S);
 }
 
 void UI_Interval_Set::handle_button_long_press() {
     #ifdef DEBUG
       Serial.println("UI Interval Set long press:");
-      char buf[24];
-      sprintf(buf, "new interval = %3d", _new_interval_selected);
+      //char buf[24];
+      //sprintf(buf, "new interval = %3d", _new_interval_selected);
       Serial.println(buf);
     #endif
     // buzz in the new state
-    delay(500); // TESTING
-    RHTimer::start(_new_interval_selected);
+    RHTimer::start(TimeGlue::MSStoInterval(_edit_values));
+    delay(600); 
     Machine::changeState(static_cast<UI_State *>(new UI_Active()));
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
-    uint16_t m = Leds::getMult();
-    if(delta < 0) {
-        if (_new_interval_selected + m > MAX_INTERVAL) { // selection greater than max
-            Buzzer::buzz(BUZZ_L);
-        } else {
-            Buzzer::buzz(BUZZ_S);
-            _new_interval_selected += m;
-        }
-    } else if (delta > 0) {
-        if(m > _new_interval_selected) {
-            _new_interval_selected = 0;
-            Buzzer::buzz(BUZZ_L);
-        } else {
-            _new_interval_selected -= m;
-            Buzzer::buzz(BUZZ_S);
-        }
+    uint8_t i = _edit_digit;
+    int8_t dir = 1;
+    if(delta > 0) {
+        dir = -1;
     }
+    switch( i ) {
+        case 0: // minutes, 0-14:59 allowed
+            _edit_values[i] = (_edit_values[i] + dir) % 14;
+            break;
+        case 2: // tens mins, 0-5 allowed
+            _edit_values[i] = (_edit_values[i] + dir) % 6;
+            break;
+        case 3: // ones mins, 0-9 allowed
+            _edit_values[i] = (_edit_values[i] + dir) % 10;
+            break;
+    }
+    TimeGlue::displayMSS(_edit_values);
+    Buzzer::buzz(BUZZ_S);
+
      #ifdef DEBUG
       Serial.println("UI Interval Set rotation:");
       char buf[24];
-      sprintf(buf, "new interval = %3d", _new_interval_selected);
-      Serial.println(buf);
+      //sprintf(buf, "new interval = %3d", _new_interval_selected);
+      //Serial.println(buf);
     #endif 
-    Display::display(_new_interval_selected);
 }
 
 void UI_Interval_Set::update() {
-    Leds::update();
+    //Leds::update();
     // buzzer updates from main()
     // no need to update stepper, hall, or timer here
+    TimeGlue::displayInterval(RHTimer::get_s_remaining());
 }
 
 /*********** UI_Active *************/
@@ -189,7 +200,7 @@ void UI_Active::handle_rotation(int delta) {
 }
 
 void UI_Active::update() {
-    Display::display(RHTimer::get_s_remaining());
+    TimeGlue::displayInterval(RHTimer::get_s_remaining());
     Stepper::update();
     #ifdef DEBUG
       Serial.println("UI Active update():");

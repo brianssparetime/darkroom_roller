@@ -7,6 +7,7 @@
 #include "Stepper.h"
 #include "Display.h"
 #include "PinsGlobals.h"
+#include "TimeGlue.h"
 
 class UI_State {
     public:
@@ -17,7 +18,7 @@ class UI_State {
         virtual void handle_button_long_release();
         virtual void handle_rotation(int delta);
     private:
-        static const unsigned _inactive_timeout = 5 * 1000; 
+        static const unsigned _inactive_timeout = 5 * 1000;
         // unsigned int maxes at 65535
 
 };
@@ -52,6 +53,8 @@ class UI_Interval_Set : public UI_State {
         virtual void update();
     private:
         uint16_t _new_interval_selected;
+        uint8_t _edit_digit; // unit multiplier
+        static int8_t _edit_values[3]; // unit multiplier
     
 };
 

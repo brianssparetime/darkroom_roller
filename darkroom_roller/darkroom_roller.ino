@@ -57,7 +57,7 @@ void setup() {
   Buzzer::init(BUZZER_PIN);
   Display::init();
   Stepper::init();
-  Leds::init();
+  //Leds::init();
   Hall::init();
 
   // default states

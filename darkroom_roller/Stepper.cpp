@@ -13,7 +13,7 @@ uint8_t Stepper::_rotations = 0;
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
    stepper.setMaxSpeed(_max_speed);
-   stepper.setAcceleration(20); // TESTING
+   //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
    _sleep(true);
 }
 
