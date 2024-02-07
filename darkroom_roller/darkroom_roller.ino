@@ -81,11 +81,11 @@ void loop() {
   // // update rotary encoder
   rew.update();
 
-  //update Machine for any state auto-transitions
-  Machine::update(); 
   Buzzer::update();
 
   // other updates done in UI_State::update()
+  //update Machine for any state auto-transitions
+  Machine::update(); 
 
 
 } // end loop

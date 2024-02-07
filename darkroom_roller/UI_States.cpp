@@ -206,7 +206,6 @@ void UI_Active::update() {
       Serial.println("UI Active update():");
     #endif
     //Leds::update(); -- no need for this
-    Hall::update();
     RHTimer::update(); 
     /* note RHTimer::update() can cause state change, 
     so should come last to avoid any following code executing in wrong state post change*/
