@@ -54,7 +54,7 @@ class UI_Interval_Set : public UI_State {
     private:
         uint16_t _new_interval_selected;
         uint8_t _edit_digit; // unit multiplier
-        static int8_t _edit_values[3]; // unit multiplier
+        static uint8_t _edit_values[3]; // unit multiplier
     
 };
 

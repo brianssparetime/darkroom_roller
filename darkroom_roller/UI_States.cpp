@@ -102,7 +102,7 @@ void UI_Welcome::update() {
 /*********** UI_Interval_Set *************/
 
 
-int8_t UI_Interval_Set::_edit_values[3] = {1,0,0};  // mm ss s
+uint8_t UI_Interval_Set::_edit_values[3] = {1,0,0};  // mm ss s
 
 void UI_Interval_Set::activate() {
     _edit_digit = 0; // mins
@@ -128,6 +128,7 @@ void UI_Interval_Set::handle_button_press() {
     } else {
         _edit_digit++;
     }
+    Display::blinkDigit(_edit_digit,true);
     Buzzer::buzz(BUZZ_S);
 }
 
@@ -145,20 +146,20 @@ void UI_Interval_Set::handle_button_long_press() {
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
-    uint8_t i = _edit_digit;
     int8_t dir = 1;
+    int8_t newv = _edit_values[_edit_digit];
     if(delta > 0) {
         dir = -1;
     }
-    switch( i ) {
+    switch( _edit_digit ) {
         case 0: // minutes, 0-14:59 allowed
-            _edit_values[i] = (_edit_values[i] + dir) % 14;
+            _edit_values[_edit_digit] = (newv + dir) % 14;
             break;
         case 2: // tens mins, 0-5 allowed
-            _edit_values[i] = (_edit_values[i] + dir) % 6;
+            _edit_values[_edit_digit] = (newv + dir) % 6;
             break;
         case 3: // ones mins, 0-9 allowed
-            _edit_values[i] = (_edit_values[i] + dir) % 10;
+            _edit_values[_edit_digit] = (newv + dir) % 10;
             break;
     }
     TimeGlue::displayMSS(_edit_values);

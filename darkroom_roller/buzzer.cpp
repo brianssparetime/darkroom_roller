@@ -1,8 +1,6 @@
 #pragma once
 #include "Arduino.h"
 #include "buzzer.h"
-#include "Leds.h"
-#define LEDS
 
 uint8_t Buzzer::_pin = 0;
 uint16_t Buzzer::_stop_time = 0;
@@ -26,18 +24,12 @@ void Buzzer::buzz() {
 
 void Buzzer::buzz(uint16_t duration_ms) {
     cancel();
-    #ifdef LEDS
-      Leds::all_on();
-    #endif
     _stop_time = millis() + duration_ms;
     digitalWrite(_pin, HIGH);
 }
 
 void Buzzer::cancel() {
     digitalWrite(_pin, LOW);
-    #ifdef LEDS
-      Leds::off();
-    #endif
     _stop_time = 0;
     _reps = 0;
     _offtime = 0;

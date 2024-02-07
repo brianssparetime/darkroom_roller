@@ -1,8 +1,8 @@
 #pragma once
+#include "Arduino.h"
+#include "Display.h"
 #include "TM1637.h"
 #include "PinsGlobals.h"
-#include "Display.h"
-#include "Arduino.h"
 
 
 
@@ -11,6 +11,9 @@ TM1637* Display::_disp = &tm;
 
 uint8_t Display::_digits[4] = {1,2,0,0};
 uint8_t Display::_blink_digit = 1;
+bool Display::_blink_state = false;
+bool Display::_blink_onoff = false;
+uint16_t Display::_last_blink = 0;
 
 
 
@@ -80,7 +83,10 @@ void Display::setDigit(uint8_t d, uint8_t v) {
   _digits[d] = v;
 }
 
-void Display::displayAllDigits() {
+void Display::displayAllDigits(bool clear_blink) {
+  if(clear_blink) {
+    _blink_onoff = false;
+  }
   for(uint8_t i = 0; i < 4; i++) {
     if((i = 0 && _digits[i] == 0) || _digits[i] >= 10 ) { // show 1:00 instead of 01:00 
       tm.clearDigit(0);

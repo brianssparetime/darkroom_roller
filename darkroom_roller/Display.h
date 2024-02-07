@@ -12,7 +12,7 @@ class Display {
         static void zeroes();
         static void dim();
         static void setDigit(uint8_t d, uint8_t v);
-        static void displayAllDigits();
+        static void displayAllDigits(bool clear_blink);
         static void blinkDigit(uint8_t d, bool onoff);
 
     private:

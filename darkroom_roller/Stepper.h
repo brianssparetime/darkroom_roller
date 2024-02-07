@@ -11,7 +11,6 @@ class Stepper {
         static void update();
         static void go();
         static void stop();
-        static void reverse();
         static void rotation();
 
     private:
@@ -21,5 +20,6 @@ class Stepper {
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static const uint8_t _rotations_before_reverse = 2;
         static uint8_t _rotations;
+        static const uint16_t _steps_per_rotation = 200;
 };
 
