@@ -3,11 +3,14 @@
 #include "PinsGlobals.h"
 #include "Stepper.h"
 #include "Arduino.h"
+#include "Tilt.h"
 
 
 AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
-uint8_t Stepper::_rotations = 0;
+float Stepper::_cycle_wheel_rotations = 0;
+uint8_t Stepper::_cycle_steps = 0;
+float Stepper::_ratio = 1;
 
 
 void Stepper::init() {
@@ -16,15 +19,32 @@ void Stepper::init() {
    stepper.setCurrentPosition(0);
    //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
    _sleep(true);
+   //randomSeed(analogRead(0));
+   randomSeed(3434UL); // TODO replace with unused analog pin
+}
+
+void Stepper::_set_cycle_steps() {
+   if( Tilt::getStatus() ) {
+      _ratio = _big_drum_ratio;
+   } else {
+      _ratio = _small_drum_ratio;
+   }
+   _cycle_wheel_rotations = _cycle_drum_rotations * _ratio;
+   _cycle_steps = _cycle_wheel_rotations * _steps_per_wheel_rotation;
+   _cycle_steps += ( random(0,_cycle_steps - 15) - (_cycle_steps / 2));
 }
 
 
+
 void Stepper::update() {
-   if(stepper.currentPosition() > _steps_per_rotation) {
-      Stepper::rotation();
-      stepper.setCurrentPosition(0);
-   }
    stepper.runSpeed();
+
+
+   if (stepper.currentPosition() > _cycle_steps) {
+      stepper.setCurrentPosition(0);
+      stepper.setSpeed(-_max_speed);
+      _set_cycle_steps();
+   }
 }
 
 void Stepper::_sleep(bool b) {
@@ -40,7 +60,7 @@ void Stepper::_sleep(bool b) {
 
 void Stepper::go() {
    _sleep(false); // awaken
-   _rotations = 0;
+   _set_cycle_steps();
    stepper.setSpeed(_max_speed);
    stepper.runSpeed();
 }
@@ -49,13 +69,4 @@ void Stepper::stop() {
    stepper.setSpeed(0);
    stepper.runSpeed();
    _sleep(true);
-}
-
-void Stepper::rotation() {
-   // TODO:  add randomization in here, so it reverses at different parts in the rotation
-   _rotations++;
-   if(_rotations == _rotations_before_reverse) {
-      _rotations = 0;
-      stepper.setSpeed(-_max_speed);
-   }
 }

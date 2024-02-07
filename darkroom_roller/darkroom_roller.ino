@@ -8,7 +8,7 @@
 #include "RHTimer.h"
 #include "REWrapper.h"
 #include "Stepper.h"
-#include "Hall.h"
+#include "Tilt.h"
 #include "Buzzer.h"
 //#include "Leds.h"
 
@@ -82,6 +82,7 @@ void loop() {
   rew.update();
 
   Buzzer::update();
+  Tilt::update();
 
   // other updates done in UI_State::update()
   //update Machine for any state auto-transitions
