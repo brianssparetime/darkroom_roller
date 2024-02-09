@@ -78,6 +78,7 @@ void UI_Welcome::activate() {
     #endif
     _start = millis();
     Buzzer::buzz(BUZZ_M);
+    Display::_displayDigit(3,8);
     TimeGlue::zeroes();
     //Leds::all_on();
 
