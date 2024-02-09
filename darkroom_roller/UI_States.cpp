@@ -107,6 +107,7 @@ void UI_Interval_Set::activate() {
     Buzzer::buzz(BUZZ_L);
     _edit_digit = 0; // mins
     TimeGlue::displayMSS(_edit_values);
+    Display::blinkDigit(1, true);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
     //   char buf[16];
@@ -166,6 +167,18 @@ void UI_Interval_Set::handle_rotation(int delta) {
         case 2: // ones mins, 0-9 allowed
             _edit_values[_edit_digit] = ((oldv + dir) % 10 + 10) % 6;
             break;
+    }
+
+    // protect against all zeros
+    if (dir == -1 && oldv == 1 \
+        && _edit_values[_edit_digit + 1 % 3] == 0 \
+        && _edit_values[_edit_digit + 2 % 3] == 0) {
+
+        if(_edit_digit == 0) {
+            _edit_values[1] = 5;
+        } else {
+            _edit_values[0] = 1;
+        }
     }
 
      #ifdef DEBUG
