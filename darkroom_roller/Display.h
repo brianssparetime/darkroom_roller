@@ -9,7 +9,6 @@ class Display {
         static void init();
         static void separator(bool x);
         static void update();
-        static void zeroes();
         static void dim();
         static void setDigit(uint8_t d, uint8_t v);
         static void displayAllDigits(bool clear_blink);

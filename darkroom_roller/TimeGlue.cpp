@@ -36,3 +36,13 @@ uint16_t TimeGlue::MSStoInterval(uint8_t mss[]) {
   uint16_t retval = mss[0] + mss[1] * 10 + mss[2] * 60;
   return retval;
 }
+
+void TimeGlue::zeroes() {
+    for(uint8_t i = 0; i < 4; i++) {
+        Display::setDigit(i,0);
+    }
+    Display::displayAllDigits(true);
+    #ifdef DEBUG
+      Serial.println("zeroes()");
+    #endif
+}

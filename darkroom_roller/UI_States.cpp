@@ -78,7 +78,7 @@ void UI_Welcome::activate() {
     #endif
     _start = millis();
     Buzzer::buzz(BUZZ_M);
-    Display::zeroes();
+    TimeGlue::zeroes();
     //Leds::all_on();
 
 }
@@ -101,10 +101,11 @@ void UI_Welcome::update() {
 /*********** UI_Interval_Set *************/
 
 
-uint8_t UI_Interval_Set::_edit_values[3] = {1,0,0};  // mm ss s
+uint8_t UI_Interval_Set::_edit_values[] = {1,0,0};  // mm ss s
 
 void UI_Interval_Set::activate() {
-    _edit_digit = 0; // mins
+    Buzzer::buzz(BUZZ_L);
+    _edit_digit = 1; // mins
     TimeGlue::displayMSS(_edit_values);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
@@ -112,7 +113,6 @@ void UI_Interval_Set::activate() {
       sprintf(buf, "nis = %3d", _new_interval_selected);
       Serial.println(buf);
     #endif
-    Buzzer::buzz(BUZZ_L);
     //Leds::update();
 }
 
@@ -122,8 +122,8 @@ void UI_Interval_Set::handle_button_press() {
     #endif
     //Leds::nextMult();
     //Leds::update();
-    if (_edit_digit == 2) {
-        _edit_digit = 0;
+    if (_edit_digit == 3) {
+        _edit_digit = 1;
     } else {
         _edit_digit++;
     }
@@ -146,19 +146,19 @@ void UI_Interval_Set::handle_button_long_press() {
 
 void UI_Interval_Set::handle_rotation(int delta) {
     int8_t dir = 1;
-    int8_t newv = _edit_values[_edit_digit];
+    int8_t oldv = _edit_values[_edit_digit];
     if(delta > 0) {
         dir = -1;
     }
     switch( _edit_digit ) {
         case 0: // minutes, 0-14:59 allowed
-            _edit_values[_edit_digit] = (newv + dir) % 14;
+            _edit_values[_edit_digit] = (oldv + dir) % 14;
             break;
         case 2: // tens mins, 0-5 allowed
-            _edit_values[_edit_digit] = (newv + dir) % 6;
+            _edit_values[_edit_digit] = (oldv + dir) % 6;
             break;
         case 3: // ones mins, 0-9 allowed
-            _edit_values[_edit_digit] = (newv + dir) % 10;
+            _edit_values[_edit_digit] = (oldv + dir) % 10;
             break;
     }
     TimeGlue::displayMSS(_edit_values);
@@ -176,7 +176,9 @@ void UI_Interval_Set::update() {
     //Leds::update();
     // buzzer updates from main()
     // no need to update stepper, hall, or timer here
-    TimeGlue::displayInterval(RHTimer::get_s_remaining());
+
+    //TimeGlue::displayInterval(RHTimer::get_s_remaining());
+    TimeGlue::displayMSS(_edit_values);
 }
 
 /*********** UI_Active *************/

@@ -24,14 +24,6 @@ void Display::init() {
     separator(true);
 }
 
-void Display::zeroes() {
-    for(uint8_t i = 0; i < 4; i++) {
-        _digits[i] = 0;
-    }
-    #ifdef DEBUG
-      Serial.println("zeroes()");
-    #endif
-}
 
 void Display::separator(bool x) {
   tm.point(1 ? x : 0);
