@@ -2,7 +2,6 @@
 #include "Arduino.h"
 #include "Machine.h"
 #include "RHTimer.h"
-#include "Hall.h"
 #include "Buzzer.h"
 #include "Stepper.h"
 #include "Display.h"

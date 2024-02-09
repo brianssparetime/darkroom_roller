@@ -58,7 +58,7 @@ void setup() {
   Display::init();
   Stepper::init();
   //Leds::init();
-  Hall::init();
+  Tilt::init();
 
   // default states
   Machine::init();
