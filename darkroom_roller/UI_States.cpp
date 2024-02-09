@@ -78,6 +78,7 @@ void UI_Welcome::activate() {
     #endif
     _start = millis();
     Buzzer::buzz(BUZZ_M);
+    Display::_displayDigit(3,8);
     TimeGlue::zeroes();
     //Leds::all_on();
 
@@ -109,9 +110,9 @@ void UI_Interval_Set::activate() {
     TimeGlue::displayMSS(_edit_values);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
-      char buf[16];
-      sprintf(buf, "nis = %3d", _new_interval_selected);
-      Serial.println(buf);
+    //   char buf[16];
+    //   sprintf(buf, "nis = %3d", _new_interval_selected);
+    //   Serial.println(buf);
     #endif
     //Leds::update();
 }
@@ -136,7 +137,7 @@ void UI_Interval_Set::handle_button_long_press() {
       Serial.println("UI Interval Set long press:");
       //char buf[24];
       //sprintf(buf, "new interval = %3d", _new_interval_selected);
-      Serial.println(buf);
+      //Serial.println(buf);
     #endif
     // buzz in the new state
     RHTimer::start(TimeGlue::MSStoInterval(_edit_values));
