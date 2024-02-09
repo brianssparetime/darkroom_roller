@@ -4,11 +4,12 @@
 #include "TimeGlue.h"
 #include "Display.h"
 
+#define DEBUG
 
 void TimeGlue::displayInterval(uint16_t seconds) {
     #ifdef DEBUG
       char buf[16];
-      sprintf(buf, "disp %3d", seconds);
+      sprintf(buf, "TG: disp %3d", seconds);
       Serial.println(buf);
     #endif
   uint8_t m = seconds / 60;
@@ -33,7 +34,12 @@ void TimeGlue::displayMSS(uint8_t mss[]) {
 
 
 uint16_t TimeGlue::MSStoInterval(uint8_t mss[]) {
-  uint16_t retval = mss[0] + mss[1] * 10 + mss[2] * 60;
+  uint16_t retval = mss[0] * 60 + mss[1] * 10 + mss[2];
+    #ifdef DEBUG
+      char buf[16];
+      sprintf(buf, "TG: disp %3d", retval);
+      Serial.println(buf);
+    #endif
   return retval;
 }
 
