@@ -122,7 +122,7 @@ void UI_Interval_Set::handle_button_press() {
     #endif
     //Leds::nextMult();
     //Leds::update();
-    if (_edit_digit == 2) {
+    if (_edit_digit >= 2) {
         _edit_digit = 0;
     } else {
         _edit_digit++;
@@ -145,6 +145,9 @@ void UI_Interval_Set::handle_button_long_press() {
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
+    // if (delta == 0) {
+    //     return;
+    // }
     int8_t oldv = _edit_values[_edit_digit];
     int8_t dir = (delta < 0) ? 1 : -1;
 
@@ -166,7 +169,7 @@ void UI_Interval_Set::handle_rotation(int delta) {
       sprintf(buf, "set digit %3d to %3d", _edit_digit, _edit_values[_edit_digit]);
       Serial.println(buf);
     #endif 
-    
+
     TimeGlue::displayMSS(_edit_values);
     Buzzer::buzz(BUZZ_S);
 }
@@ -177,7 +180,8 @@ void UI_Interval_Set::update() {
     // no need to update stepper, hall, or timer here
 
     //TimeGlue::displayInterval(RHTimer::get_s_remaining());
-    TimeGlue::displayMSS(_edit_values);
+    //TimeGlue::displayMSS(_edit_values);
+    Display::update();
 }
 
 /*********** UI_Active *************/
