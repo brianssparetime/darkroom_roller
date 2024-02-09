@@ -17,17 +17,20 @@ class Stepper {
         static void _sleep(bool b);
         static void _set_cycle_steps();
         static AccelStepper* _stepper;
-        static const float _max_speed = 200; // TODO test and fixme
+        static const float _max_speed = 200; 
         // speeds > 1000 are unreliable (note from AccelStepper docs)
 
-        // for Nema 17 + a4988
-        static const uint16_t _steps_per_wheel_rotation = 200;
+        // for Nema 17 + a4988 / drv8825 at full stepping
+        static const uint16_t _steps_per_wheel_rotation = 200; // in steps/sec
 
         // adjust based on tube size
-        // wheel size is 84 mm (3.3″) in diameter
-        static const float _big_drum_ratio = 2;
-        static const float _small_drum_ratio = 1.333;
+        // wheel size is 84 mm (3.3″) in diameter, 10.37" in circumference
+        // small drum is 4 inches in diameter, about 12.57 circumference, 
+        // large drum is 6 inches in diameter, about 18.85
+        // target RPM is about 50-75pm, which are speeds offered on jobo
         static float _ratio;
+        static const float _big_drum_ratio = 1.8;
+        static const float _small_drum_ratio = 1.2;
         static const uint8_t _cycle_drum_rotations = 2;
 
         static float _cycle_wheel_rotations;
