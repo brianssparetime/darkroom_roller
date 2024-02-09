@@ -24,7 +24,8 @@ void Stepper::init() {
 }
 
 void Stepper::_set_cycle_steps() {
-   if( Tilt::getStatus() ) {
+   //if( Tilt::getStatus() ) { // TODO
+   if( false ) {
       _ratio = _big_drum_ratio;
    } else {
       _ratio = _small_drum_ratio;

@@ -11,6 +11,7 @@ class Tilt {
     private:
         static long unsigned _last_debounce;
         static bool _state;
+        static bool _last_r;
 
 };
 

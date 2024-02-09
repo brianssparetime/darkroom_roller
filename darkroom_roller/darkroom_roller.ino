@@ -58,7 +58,7 @@ void setup() {
   Display::init();
   Stepper::init();
   //Leds::init();
-  Tilt::init();
+  //Tilt::init();
 
   // default states
   Machine::init();
@@ -82,7 +82,7 @@ void loop() {
   rew.update();
 
   Buzzer::update();
-  Tilt::update();
+  //Tilt::update(); // TODO:  add this back in!!!
 
   // other updates done in UI_State::update()
   //update Machine for any state auto-transitions

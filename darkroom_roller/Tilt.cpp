@@ -8,6 +8,7 @@
 
 long unsigned Tilt::_last_debounce = 0;
 bool Tilt::_state = false;
+bool Tilt::_last_r = false;
 
 
 void Tilt::init() {
@@ -17,15 +18,20 @@ void Tilt::init() {
 
 
 void Tilt::update() {
-    if(digitalRead(HALL) != _state) {
-        unsigned long now = millis();
-        if (now - _last_debounce < 50) {
-            _last_debounce = now;
-            return;
-        }
+    unsigned long now = millis();
+    bool r = digitalRead(HALL);
+
+    if(r != _last_r) {
         _last_debounce = now;
+    }
+
+    if((now - _last_debounce) > 50) {
+        if (r != _state) {
+            _state = r;
+        }
         _state = ! _state;
     }
+    _last_r = r;
 }
 
 bool Tilt::getStatus() {
