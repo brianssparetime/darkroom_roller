@@ -10,7 +10,6 @@
 #include "Stepper.h"
 #include "Tilt.h"
 #include "Buzzer.h"
-//#include "Leds.h"
 
 
 // when uncommented, serial debug output is enabled; 
@@ -22,6 +21,14 @@
 /*
 
   For use on Arduino Nano v3
+
+
+  NOTE:  currently, PCB designed for a4988 driver
+  but newer DRV8825 does not need VCC from the arduino
+  and instead uses that pin as an output to indicate a fault
+
+  TODO:  rework hardware to reflect this
+  TODO:  consider adding half-step at twice speed
 
  */
 
@@ -58,7 +65,7 @@ void setup() {
   Buzzer::init(BUZZER_PIN);
   Display::init();
   Stepper::init();
-  //Tilt::init();
+  Tilt::init();
 
   // default states
   Machine::init();
@@ -82,7 +89,7 @@ void loop() {
   rew.update();
 
   Buzzer::update();
-  //Tilt::update(); // TODO:  add this back in!!!
+  Tilt::update(); // TODO:  add this back in!!!
 
   // other updates done in UI_State::update()
   //update Machine for any state auto-transitions

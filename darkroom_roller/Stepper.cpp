@@ -19,13 +19,12 @@ void Stepper::init() {
    stepper.setCurrentPosition(0);
    //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
    _sleep(true);
-   //randomSeed(analogRead(0));
-   randomSeed(3434UL); // TODO replace with unused analog pin
+   //randomSeed(analogRead(A6));
+   randomSeed(3434UL); // TODO replace with unused analog pin -- A6 seems ok
 }
 
 void Stepper::_set_cycle_steps() {
-   //if( Tilt::getStatus() ) { // TODO
-   if( false ) {
+   if( Tilt::getStatus() ) { 
       _ratio = _big_drum_ratio;
    } else {
       _ratio = _small_drum_ratio;
