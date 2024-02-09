@@ -70,7 +70,7 @@ void UI_State::handle_rotation(int delta) { }
 
 
 /*********** UI_Welcome *************/
-
+#define DEBUG
 
 void UI_Welcome::activate() {
     #ifdef DEBUG
@@ -109,9 +109,9 @@ void UI_Interval_Set::activate() {
     TimeGlue::displayMSS(_edit_values);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
-      char buf[16];
-      sprintf(buf, "nis = %3d", _new_interval_selected);
-      Serial.println(buf);
+    //   char buf[16];
+    //   sprintf(buf, "nis = %3d", _new_interval_selected);
+    //   Serial.println(buf);
     #endif
     //Leds::update();
 }
@@ -127,7 +127,7 @@ void UI_Interval_Set::handle_button_press() {
     } else {
         _edit_digit++;
     }
-    Display::blinkDigit(_edit_digit,true);
+    //Display::blinkDigit(_edit_digit,true);
     Buzzer::buzz(BUZZ_S);
 }
 
@@ -136,7 +136,7 @@ void UI_Interval_Set::handle_button_long_press() {
       Serial.println("UI Interval Set long press:");
       //char buf[24];
       //sprintf(buf, "new interval = %3d", _new_interval_selected);
-      Serial.println(buf);
+      //Serial.println(buf);
     #endif
     // buzz in the new state
     RHTimer::start(TimeGlue::MSStoInterval(_edit_values));
@@ -166,7 +166,7 @@ void UI_Interval_Set::handle_rotation(int delta) {
 
      #ifdef DEBUG
       Serial.println("UI Interval Set rotation:");
-      char buf[24];
+      //char buf[24];
       //sprintf(buf, "new interval = %3d", _new_interval_selected);
       //Serial.println(buf);
     #endif 
