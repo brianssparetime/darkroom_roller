@@ -170,7 +170,7 @@ void UI_Interval_Set::handle_rotation(int delta) {
     }
 
     // protect against all zeros
-    if (dir == -1 && oldv == 1 \
+    if (_edit_values[_edit_digit] == 0 \
         && _edit_values[_edit_digit + 1 % 3] == 0 \
         && _edit_values[_edit_digit + 2 % 3] == 0) {
 
