@@ -34,25 +34,40 @@ void Display::update() {
   // TODO:  consider whether setDigit should call this,
   // or whether it should just be done from the main loop
 
+  if (! _blink_onoff) {
+    return;
+  }
 
-  for (uint8_t i = 0; i < 4; i++) {
-    // if time to blink
-    if (_blink_onoff && (_blink_digit == i)) {
-      if (_last_blink + _blink_rate < millis()) {
-          if (_blink_state) { // off blink
-              // TODO:  handle initial digits 
-              Display::_clearDigit(_blink_digit);
-          } else { // on blink
-              Display::_displayDigit(_blink_digit, _digits[_blink_digit]);
-          }
-          _last_blink = millis();
-          _blink_state = ! _blink_state;
+  if (_last_blink + _blink_rate < millis()) {
+      if (_blink_state) { // off blink
+          Display::_clearDigit(_blink_digit);
+      } else { // on blink
+          Display::_displayDigit(_blink_digit, _digits[_blink_digit]);
       }
-    } else {
-      Display::_displayDigit(i, _digits[i]);
-    }
+      _last_blink = millis();
+      _blink_state = ! _blink_state;
   }
 }
+
+
+  // for (uint8_t i = 0; i < 4; i++) {
+  //   // if time to blink
+  //   if (_blink_onoff && (_blink_digit == i)) {
+  //     if (_last_blink + _blink_rate < millis()) {
+  //         if (_blink_state) { // off blink
+  //             // TODO:  handle initial digits 
+  //             Display::_clearDigit(_blink_digit);
+  //         } else { // on blink
+  //             Display::_displayDigit(_blink_digit, _digits[_blink_digit]);
+  //         }
+  //         _last_blink = millis();
+  //         _blink_state = ! _blink_state;
+  //     }
+  //   } else {
+  //     Display::_displayDigit(i, _digits[i]);
+  //   }
+  // }
+// }
 
 void Display::dim() {
   tm.set(0);  //set brightness; 0-7(max)
@@ -86,7 +101,7 @@ void Display::displayAllDigits(bool clear_blink) {
     _blink_onoff = false;
   }
   for(uint8_t i = 0; i < 4; i++) {
-    if((i == 0 && _digits[i] == 0) || _digits[i] >= 10 ) { // show 1:00 instead of 01:00 
+    if( i == 0 && _digits[i] == 0 ) { // show 1:00 instead of 01:00 
       tm.clearDigit(0);
     } else {
       _displayDigit(i,_digits[i]);
