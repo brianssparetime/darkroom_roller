@@ -14,11 +14,11 @@ class Display {
         static void displayAllDigits(bool clear_blink);
         static void blinkDigit(uint8_t d, bool onoff);
 
-        static void _displayDigit(uint8_t d, uint8_t v);
         
     private:
         static TM1637* _disp;
         static void _clearDigit(uint8_t d);
+        static void _displayDigit(uint8_t d, uint8_t v);
         static uint8_t _digits[4];
         static uint8_t _blink_digit;
         static bool _blink_onoff;

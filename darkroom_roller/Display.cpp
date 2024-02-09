@@ -111,10 +111,12 @@ void Display::displayAllDigits(bool clear_blink) {
 
 // blinking a new digit will implicitly turn off blink on others
 void Display::blinkDigit(uint8_t d, bool onoff) {
+  displayAllDigits(false); // make sure if some other digit was blinked off, it's now on
   if (onoff) {
     _blink_onoff = true;
     _blink_digit = d;
     _blink_state = false;
+    _clearDigit(d);
   } else {
     _blink_onoff = false;
     _displayDigit(_blink_digit,_digits[_blink_digit]);

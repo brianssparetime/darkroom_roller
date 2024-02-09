@@ -151,15 +151,20 @@ void UI_Interval_Set::handle_rotation(int delta) {
     int8_t oldv = _edit_values[_edit_digit];
     int8_t dir = (delta < 0) ? 1 : -1;
 
+    // NOTE:  C++ % operator can return negatives, so using
+        // return (i % n + n) % n;
+    // instead to get a positive-only modulo
+
+
     switch( _edit_digit ) {
         case 0: // minutes, 0-14:59 allowed
-            _edit_values[_edit_digit] = (oldv + dir) % 14;
+            _edit_values[_edit_digit] = ((oldv + dir) % 14 + 14) % 14;
             break;
         case 1: // tens mins, 0-5 allowed
-            _edit_values[_edit_digit] = (oldv + dir) % 6;
+            _edit_values[_edit_digit] = ((oldv + dir) % 6 + 6) % 6;
             break;
         case 2: // ones mins, 0-9 allowed
-            _edit_values[_edit_digit] = (oldv + dir) % 10;
+            _edit_values[_edit_digit] = ((oldv + dir) % 10 + 10) % 6;
             break;
     }
 
