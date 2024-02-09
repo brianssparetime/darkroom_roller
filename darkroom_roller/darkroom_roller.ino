@@ -45,7 +45,8 @@ REWrapper rew = REWrapper( &encoder);
 void setup() {
 
   
-  #ifdef DEBUG 
+  #define DEBUG_MASTER
+  #ifdef DEBUG_MASTER
     Serial.begin(115200);
     Serial.println("online");
   #endif
