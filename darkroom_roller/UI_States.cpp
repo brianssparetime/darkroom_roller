@@ -151,7 +151,7 @@ void UI_Interval_Set::handle_rotation(int delta) {
         dir = -1;
     }
     switch( _edit_digit ) {
-        case 0: // minutes, 0-14:59 allowed
+        case 1: // minutes, 0-14:59 allowed
             _edit_values[_edit_digit] = (oldv + dir) % 14;
             break;
         case 2: // tens mins, 0-5 allowed

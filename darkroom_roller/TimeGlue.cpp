@@ -38,7 +38,7 @@ uint16_t TimeGlue::MSStoInterval(uint8_t mss[]) {
 }
 
 void TimeGlue::zeroes() {
-    for(uint8_t i = 0; i < 4; i++) {
+    for(uint8_t i = 0; i < 3; i++) {
         Display::setDigit(i,0);
     }
     Display::displayAllDigits(true);

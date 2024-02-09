@@ -35,7 +35,7 @@ void Display::update() {
   // or whether it should just be done from the main loop
 
 
-  for (uint8_t i = 0; i < 4; i++) {
+  for (uint8_t i = 0; i < 3; i++) {
     // if time to blink
     if (_blink_onoff && _blink_digit == i) {
       if (_last_blink + _blink_rate < millis()) {
@@ -79,7 +79,7 @@ void Display::displayAllDigits(bool clear_blink) {
   if(clear_blink) {
     _blink_onoff = false;
   }
-  for(uint8_t i = 0; i < 4; i++) {
+  for(uint8_t i = 0; i < 3; i++) {
     if((i = 0 && _digits[i] == 0) || _digits[i] >= 10 ) { // show 1:00 instead of 01:00 
       tm.clearDigit(0);
     } else {
