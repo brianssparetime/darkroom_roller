@@ -78,7 +78,6 @@ void UI_Welcome::activate() {
     #endif
     _start = millis();
     Buzzer::buzz(BUZZ_M);
-    Display::_displayDigit(3,8);
     TimeGlue::zeroes();
     //Leds::all_on();
 
@@ -106,7 +105,7 @@ uint8_t UI_Interval_Set::_edit_values[] = {1,0,0};  // mm ss s
 
 void UI_Interval_Set::activate() {
     Buzzer::buzz(BUZZ_L);
-    _edit_digit = 1; // mins
+    _edit_digit = 0; // mins
     TimeGlue::displayMSS(_edit_values);
     #ifdef DEBUG
       Serial.println("UI Interval Set activated");
@@ -123,12 +122,12 @@ void UI_Interval_Set::handle_button_press() {
     #endif
     //Leds::nextMult();
     //Leds::update();
-    if (_edit_digit == 3) {
-        _edit_digit = 1;
+    if (_edit_digit == 2) {
+        _edit_digit = 0;
     } else {
         _edit_digit++;
     }
-    //Display::blinkDigit(_edit_digit,true);
+    Display::blinkDigit(_edit_digit+1,true);
     Buzzer::buzz(BUZZ_S);
 }
 
@@ -146,31 +145,30 @@ void UI_Interval_Set::handle_button_long_press() {
 }
 
 void UI_Interval_Set::handle_rotation(int delta) {
-    int8_t dir = 1;
     int8_t oldv = _edit_values[_edit_digit];
-    if(delta > 0) {
-        dir = -1;
-    }
+    int8_t dir = (delta < 0) ? 1 : -1;
+
     switch( _edit_digit ) {
-        case 1: // minutes, 0-14:59 allowed
+        case 0: // minutes, 0-14:59 allowed
             _edit_values[_edit_digit] = (oldv + dir) % 14;
             break;
-        case 2: // tens mins, 0-5 allowed
+        case 1: // tens mins, 0-5 allowed
             _edit_values[_edit_digit] = (oldv + dir) % 6;
             break;
-        case 3: // ones mins, 0-9 allowed
+        case 2: // ones mins, 0-9 allowed
             _edit_values[_edit_digit] = (oldv + dir) % 10;
             break;
     }
-    TimeGlue::displayMSS(_edit_values);
-    Buzzer::buzz(BUZZ_S);
 
      #ifdef DEBUG
       Serial.println("UI Interval Set rotation:");
-      //char buf[24];
-      //sprintf(buf, "new interval = %3d", _new_interval_selected);
-      //Serial.println(buf);
+      char buf[24];
+      sprintf(buf, "set digit %3d to %3d", _edit_digit, _edit_values[_edit_digit]);
+      Serial.println(buf);
     #endif 
+    
+    TimeGlue::displayMSS(_edit_values);
+    Buzzer::buzz(BUZZ_S);
 }
 
 void UI_Interval_Set::update() {
