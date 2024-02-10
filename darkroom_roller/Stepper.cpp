@@ -11,7 +11,10 @@ AccelStepper* Stepper::_stepper = &stepper;
 float Stepper::_cycle_wheel_rotations = 0;
 uint8_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
+bool Stepper::_random = false;
 
+
+#define DEBUG
 
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
@@ -31,7 +34,16 @@ void Stepper::_set_cycle_steps() {
    }
    _cycle_wheel_rotations = _cycle_drum_rotations * _ratio;
    _cycle_steps = _cycle_wheel_rotations * _steps_per_wheel_rotation;
+
+   if (_random) {
    _cycle_steps += ( random(0,_cycle_steps - 15) - (_cycle_steps / 2));
+   }
+
+   #ifdef DEBUG
+      char buf[48];
+      sprintf(buf, "Stepper:set_cycle_steps - steps set to %d");
+      Serial.println(buf);
+    #endif 
 }
 
 

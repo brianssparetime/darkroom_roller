@@ -77,7 +77,7 @@ void UI_Welcome::activate() {
       Serial.println(F("UI Welcome activated"));
     #endif
     _start = millis();
-    Buzzer::buzz(BUZZ_M);
+    Buzzer::buzz(BUZZ_S);
     TimeGlue::zeroes();
     //Leds::all_on();
 
@@ -92,7 +92,7 @@ void UI_Welcome::handle_rotation(int delta) {
 
 void UI_Welcome::update() { 
     unsigned long now = millis();
-    if(now - _start > 1000UL * _duration) {
+    if(now - _start > 500UL * _duration) {
         Machine::changeState(static_cast<UI_State *>(new UI_Interval_Set()));
     }
 }
@@ -140,8 +140,8 @@ void UI_Interval_Set::handle_button_long_press() {
       //Serial.println(buf);
     #endif
     // buzz in the new state
+    delay(600);  // TODO:  replace this with a variable holding release time and a hook in update
     RHTimer::start(TimeGlue::MSStoInterval(_edit_values));
-    delay(600); 
     Machine::changeState(static_cast<UI_State *>(new UI_Active()));
 }
 

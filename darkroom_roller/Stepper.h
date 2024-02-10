@@ -19,6 +19,7 @@ class Stepper {
         static AccelStepper* _stepper;
         static const float _max_speed = 200; 
         // speeds > 1000 are unreliable (note from AccelStepper docs)
+        static bool _random; 
 
         // for Nema 17 + a4988 / drv8825 at full stepping
         static const uint16_t _steps_per_wheel_rotation = 200; // in steps/sec
