@@ -19,7 +19,7 @@ bool Stepper::_random = false;
 
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
-   stepper.setMaxSpeed(0);
+   stepper.setMaxSpeed(_max_speed);
    stepper.setCurrentPosition(0);
    //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
    _sleep(true);
