@@ -21,17 +21,17 @@ bool Stepper::_asleep = false;
 
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
+   //stepper.setCurrentPosition(0);
    stepper.setMaxSpeed(800);
    stepper.setAcceleration(200); // TESTING -- retry this with good connectors
-   stepper.setCurrentPosition(0);
-   _sleep(true);
+   _sleep();
    //randomSeed(analogRead(A6));
    randomSeed(3434UL); // TODO replace with unused analog pin -- A6 seems ok
 }
 
 
 void Stepper::go() {
-   _sleep(false); // awaken
+   _awaken();
    if( Tilt::getStatus() ) { 
       _ratio = _big_drum_ratio;
    } else {
@@ -65,7 +65,7 @@ uint16_t Stepper::_get_cycle_steps() {
    }
 
    #ifdef DEBUG
-      char buf[32];
+      char buf[48];
       sprintf(buf, "Stepper:set_cycle_steps - steps set to %d", cycle_steps);
       Serial.println(buf);
     #endif 
@@ -115,22 +115,29 @@ void Stepper::update() {
    // }
 }
 
-void Stepper::_sleep(bool b) {
-   if(b) {
-      if( ! _asleep) {
-         _wait_to_sleep = true;
-      }
-   } else {
-      digitalWrite(ST_SLP, HIGH); // awaken driver 
-      delay(100); // to let A4988 reawaken
-      stepper.enableOutputs();
-      _asleep = false;
-      _wait_to_sleep = false;
+void Stepper::_sleep() {
+   if( ! _asleep) {
+      _wait_to_sleep = true;
    }
 
    #ifdef DEBUG
       char buf[24];
-      sprintf(buf, "Stepper:sleep %s", b ? "true" : "false");
+      sprintf(buf, "Stepper:sleep");
+      Serial.println(buf);
+   #endif DEBUG
+}
+
+
+void Stepper::_awaken() {
+   digitalWrite(ST_SLP, HIGH); // awaken driver 
+   delay(100); // to let A4988 reawaken
+   stepper.enableOutputs();
+   _asleep = false;
+   _wait_to_sleep = false;
+
+   #ifdef DEBUG
+      char buf[24];
+      sprintf(buf, "Stepper:awaken");
       Serial.println(buf);
    #endif DEBUG
 }
@@ -138,7 +145,7 @@ void Stepper::_sleep(bool b) {
 void Stepper::stop() {
    stepper.stop();
    stepper.runToPosition(); // this blocks until stopped
-   _sleep(true);
+   _sleep();
 }
 
 
