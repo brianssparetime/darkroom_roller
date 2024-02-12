@@ -7,7 +7,7 @@
 #include "Buzzer.h"
 
 
-AccelStepper stepper(Stepper::_steps_per_wheel_rotation, ST_STEP, ST_DIR);
+AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
 uint8_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
