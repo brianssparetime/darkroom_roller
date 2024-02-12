@@ -223,7 +223,7 @@ void UI_Active::handle_rotation(int delta) {
 }
 
 void UI_Active::update() {
-    TimeGlue::displayInterval(RHTimer::get_s_remaining());
+    // TimeGlue::displayInterval(RHTimer::get_s_remaining());
     Stepper::update();
     // #ifdef DEBUG
     //   Serial.println("UI Active update():");

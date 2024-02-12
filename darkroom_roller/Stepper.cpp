@@ -9,7 +9,7 @@
 // AccelStepper::DRIVER
 AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
-uint8_t Stepper::_cycle_steps = 0;
+uint16_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
 float Stepper::_target_speed = 0;
 bool Stepper::_random = false;
@@ -31,6 +31,7 @@ void Stepper::init() {
 
 
 void Stepper::go() {
+   _sleep(false); // awaken
    if( Tilt::getStatus() ) { 
       _ratio = _big_drum_ratio;
    } else {
@@ -40,13 +41,14 @@ void Stepper::go() {
    _target_speed = _ratio * _steps_per_wheel_rotation;
    stepper.setMaxSpeed(_target_speed);
 
-   _sleep(false); // awaken
 
    //stepper.setCurrentPosition(0);
    stepper.move(_cycle_steps); // relative to current position
 
       #ifdef DEBUG
-         Serial.println("Stepper: go");
+      char buf[24];
+      sprintf(buf, "Stepper: go (ratio = %0.1f)", _ratio);
+      Serial.println(buf);
       #endif DEBUG
 }
 
@@ -59,7 +61,7 @@ uint16_t Stepper::_get_cycle_steps() {
    }
 
    #ifdef DEBUG
-      char buf[48];
+      char buf[32];
       sprintf(buf, "Stepper:set_cycle_steps - steps set to %d", cycle_steps);
       Serial.println(buf);
     #endif 
@@ -119,6 +121,7 @@ void Stepper::_sleep(bool b) {
       delay(100); // to let A4988 reawaken
       stepper.enableOutputs();
       _asleep = false;
+      _wait_to_sleep = false;
    }
 
    #ifdef DEBUG

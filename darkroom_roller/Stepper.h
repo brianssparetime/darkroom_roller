@@ -39,6 +39,6 @@ class Stepper {
 
         static const float _max_speed = 800;
         static float _target_speed;
-        static uint8_t _cycle_steps;
+        static uint16_t _cycle_steps;
 };
 
