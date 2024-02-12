@@ -109,9 +109,9 @@ void Stepper::update() {
       #endif DEBUG
 
       //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
-      stepper.setMaxSpeed(-_target_speed); 
+      stepper.setMaxSpeed(_target_speed); 
       _cycle_steps = _get_cycle_steps();
-      stepper.move(_cycle_steps);
+      stepper.move(- _cycle_steps);
    }
 }
 
