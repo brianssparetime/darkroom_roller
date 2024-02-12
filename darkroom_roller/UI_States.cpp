@@ -225,9 +225,9 @@ void UI_Active::handle_rotation(int delta) {
 void UI_Active::update() {
     TimeGlue::displayInterval(RHTimer::get_s_remaining());
     Stepper::update();
-    #ifdef DEBUG
-      Serial.println("UI Active update():");
-    #endif
+    // #ifdef DEBUG
+    //   Serial.println("UI Active update():");
+    // #endif
     //Leds::update(); -- no need for this
     RHTimer::update(); 
     /* note RHTimer::update() can cause state change, 

@@ -58,7 +58,6 @@ void Stepper::update() {
       #endif DEBUG
 
       stepper.setSpeed(-_actual_speed);
-      stepper.runSpeed();
       stepper.setCurrentPosition(0);
       _cycle_steps = _get_cycle_steps();
    }
@@ -87,10 +86,15 @@ void Stepper::go() {
    stepper.setCurrentPosition(0);
    stepper.setSpeed(_actual_speed);
    stepper.runSpeed();
+
+      #ifdef DEBUG
+         Serial.println("Stepper: go");
+      #endif DEBUG
 }
 
 void Stepper::stop() {
    stepper.setSpeed(0);
    stepper.runSpeed();
+   stepper.setCurrentPosition(0);
    _sleep(true);
 }
