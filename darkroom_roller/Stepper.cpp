@@ -36,7 +36,7 @@ void Stepper::go() {
    _cycle_steps = _get_cycle_steps();
    _actual_speed = _ratio * _steps_per_wheel_rotation;
    _sleep(false); // awaken
-   //stepper.setCurrentPosition(0);
+   stepper.setCurrentPosition(0);
    stepper.setSpeed(_actual_speed);
    stepper.runSpeed();
 
@@ -67,7 +67,7 @@ uint16_t Stepper::_get_cycle_steps() {
 void Stepper::update() {
    stepper.runSpeed();
 
-   /*
+   
    // if one cycle of rotations is complete...
    if (stepper.currentPosition() > _cycle_steps) {
 
@@ -77,12 +77,12 @@ void Stepper::update() {
          Serial.println("Stepper: cycle");
       #endif DEBUG
 
-      //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
+      stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
       stepper.setSpeed(-_actual_speed); 
       _cycle_steps = _get_cycle_steps();
       stepper.runSpeed();
    }
-   */
+   
 }
 
 void Stepper::_sleep(bool b) {
