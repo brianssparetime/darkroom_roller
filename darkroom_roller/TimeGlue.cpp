@@ -4,7 +4,7 @@
 #include "TimeGlue.h"
 #include "Display.h"
 
-#define DEBUG
+//#define DEBUG
 
 void TimeGlue::displayInterval(uint16_t seconds) {
     #ifdef DEBUG

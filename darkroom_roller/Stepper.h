@@ -15,9 +15,8 @@ class Stepper {
 
     private:
         static void _sleep(bool b);
-        static void _set_cycle_steps();
+        static uint16_t _get_cycle_steps();
         static AccelStepper* _stepper;
-        static const float _max_speed = 200; 
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static bool _random; 
 
@@ -32,9 +31,10 @@ class Stepper {
         static float _ratio;
         static const float _big_drum_ratio = 1.8;
         static const float _small_drum_ratio = 1.2;
-        static const uint8_t _cycle_drum_rotations = 2;
+        static const uint8_t _cycle_drum_rotations = 1;
 
-        static float _cycle_wheel_rotations;
+        static const float _max_speed = 800;
+        static float _actual_speed;
         static uint8_t _cycle_steps;
 };
 
