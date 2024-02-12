@@ -46,9 +46,13 @@ void Stepper::go() {
    stepper.move(_cycle_steps); // relative to current position
 
       #ifdef DEBUG
-      char buf[24];
-      sprintf(buf, "Stepper: go (ratio = %0.1f)", _ratio);
-      Serial.println(buf);
+      Serial.println("Stepper: go");
+      // char buf[30];
+      // char fbuf[6];
+      // // float not supported in sprintf
+      // dtostrf(_ratio, 3, 1, fbuf);
+      // sprintf(buf, "Stepper: go (ratio = %s)", fbuf);
+      // Serial.println(buf);
       #endif DEBUG
 }
 
