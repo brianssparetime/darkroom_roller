@@ -12,7 +12,7 @@ bool Tilt::_last_r = false;
 
 
 void Tilt::init() {
-    pinMode(HALL, INPUT); // high active
+    pinMode(HALL, INPUT); // LOW = LIGHT ON = LOW position
 }
 
 
