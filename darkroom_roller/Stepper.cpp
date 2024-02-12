@@ -100,7 +100,7 @@ void Stepper::update() {
 
 
    // if one cycle of rotations is complete...
-   if (stepper.distanceToGo() < 5) {
+   if (stepper.distanceToGo() < 1) {
 
       Buzzer::buzz(BUZZ_S);
 
@@ -109,9 +109,9 @@ void Stepper::update() {
       #endif DEBUG
 
       //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
-      stepper.setMaxSpeed(_target_speed); 
+      //stepper.setMaxSpeed(_target_speed); 
       _cycle_steps = _get_cycle_steps();
-      stepper.move(- _cycle_steps);
+      stepper.move(-_cycle_steps);
    }
 }
 
