@@ -50,25 +50,6 @@ void Display::update() {
 }
 
 
-  // for (uint8_t i = 0; i < 4; i++) {
-  //   // if time to blink
-  //   if (_blink_onoff && (_blink_digit == i)) {
-  //     if (_last_blink + _blink_rate < millis()) {
-  //         if (_blink_state) { // off blink
-  //             // TODO:  handle initial digits 
-  //             Display::_clearDigit(_blink_digit);
-  //         } else { // on blink
-  //             Display::_displayDigit(_blink_digit, _digits[_blink_digit]);
-  //         }
-  //         _last_blink = millis();
-  //         _blink_state = ! _blink_state;
-  //     }
-  //   } else {
-  //     Display::_displayDigit(i, _digits[i]);
-  //   }
-  // }
-// }
-
 void Display::dim() {
   tm.set(0);  //set brightness; 0-7(max)
 }
