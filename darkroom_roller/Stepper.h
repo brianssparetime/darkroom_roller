@@ -13,6 +13,10 @@ class Stepper {
         static void stop();
         static void rotation();
 
+        // for Nema 17 + a4988 / drv8825 at full stepping
+        static const uint16_t _steps_per_wheel_rotation = 200; // in steps/sec
+
+
     private:
         static void _sleep(bool b);
         static uint16_t _get_cycle_steps();
@@ -20,8 +24,6 @@ class Stepper {
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static bool _random; 
 
-        // for Nema 17 + a4988 / drv8825 at full stepping
-        static const uint16_t _steps_per_wheel_rotation = 200; // in steps/sec
 
         // adjust based on tube size
         // wheel size is 84 mm (3.3″) in diameter, 10.37" in circumference

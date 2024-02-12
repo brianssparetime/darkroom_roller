@@ -7,7 +7,7 @@
 #include "Buzzer.h"
 
 
-AccelStepper stepper(1, ST_STEP, ST_DIR);
+AccelStepper stepper(Stepper::_steps_per_wheel_rotation, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
 uint8_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
@@ -57,8 +57,8 @@ void Stepper::update() {
          Serial.println("Stepper: cycle");
       #endif DEBUG
 
-      stepper.setSpeed(-_actual_speed);
-      stepper.setCurrentPosition(0);
+      stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
+      stepper.setSpeed(-_actual_speed); 
       _cycle_steps = _get_cycle_steps();
    }
 }
@@ -93,8 +93,6 @@ void Stepper::go() {
 }
 
 void Stepper::stop() {
-   stepper.setSpeed(0);
-   stepper.runSpeed();
-   stepper.setCurrentPosition(0);
+   stepper.stop();
    _sleep(true);
 }
