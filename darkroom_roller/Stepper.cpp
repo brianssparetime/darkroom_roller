@@ -19,13 +19,32 @@ bool Stepper::_random = false;
 
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
-   stepper.setMaxSpeed(_max_speed);
-   stepper.setCurrentPosition(0);
+   stepper.setMaxSpeed(800);
    //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
    _sleep(true);
    //randomSeed(analogRead(A6));
    randomSeed(3434UL); // TODO replace with unused analog pin -- A6 seems ok
 }
+
+
+void Stepper::go() {
+   if( Tilt::getStatus() ) { 
+      _ratio = _big_drum_ratio;
+   } else {
+      _ratio = _small_drum_ratio;
+   }
+   _cycle_steps = _get_cycle_steps();
+   _actual_speed = _ratio * _steps_per_wheel_rotation;
+   _sleep(false); // awaken
+   //stepper.setCurrentPosition(0);
+   stepper.setSpeed(_actual_speed);
+   stepper.runSpeed();
+
+      #ifdef DEBUG
+         Serial.println("Stepper: go");
+      #endif DEBUG
+}
+
 
 uint16_t Stepper::_get_cycle_steps() {
    uint16_t cycle_steps = _cycle_drum_rotations * _ratio * _steps_per_wheel_rotation;
@@ -48,6 +67,7 @@ uint16_t Stepper::_get_cycle_steps() {
 void Stepper::update() {
    stepper.runSpeed();
 
+   /*
    // if one cycle of rotations is complete...
    if (stepper.currentPosition() > _cycle_steps) {
 
@@ -57,10 +77,12 @@ void Stepper::update() {
          Serial.println("Stepper: cycle");
       #endif DEBUG
 
-      stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
+      //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
       stepper.setSpeed(-_actual_speed); 
       _cycle_steps = _get_cycle_steps();
+      stepper.runSpeed();
    }
+   */
 }
 
 void Stepper::_sleep(bool b) {
@@ -73,26 +95,9 @@ void Stepper::_sleep(bool b) {
    }
 }
 
-
-void Stepper::go() {
-   if( Tilt::getStatus() ) { 
-      _ratio = _big_drum_ratio;
-   } else {
-      _ratio = _small_drum_ratio;
-   }
-   _cycle_steps = _get_cycle_steps();
-   _actual_speed = _ratio * _steps_per_wheel_rotation;
-   _sleep(false); // awaken
-   stepper.setCurrentPosition(0);
-   stepper.setSpeed(_actual_speed);
-   stepper.runSpeed();
-
-      #ifdef DEBUG
-         Serial.println("Stepper: go");
-      #endif DEBUG
-}
-
 void Stepper::stop() {
    stepper.stop();
    _sleep(true);
 }
+
+
