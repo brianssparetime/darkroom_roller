@@ -15,8 +15,6 @@ bool Display::_blink_state = false;
 bool Display::_blink_onoff = false;
 uint16_t Display::_last_blink = 0;
 
-#define DEBUG
-
 
 void Display::init() {
     tm.init();
@@ -30,9 +28,6 @@ void Display::separator(bool x) {
 }
 
 void Display::update() {
-
-  // TODO:  consider whether setDigit should call this,
-  // or whether it should just be done from the main loop
 
   if (! _blink_onoff) {
     return;
@@ -72,7 +67,7 @@ void Display::setDigit(uint8_t d, uint8_t v) {
 
   #ifdef DEBUG
     char buf[48];
-    sprintf(buf, "Display::setDigit  %d %d %d %d", _digits[0], _digits[1], _digits[2], _digits[3]);
+    sprintf(buf, "Display::setDigit  %d to %d", d, v); 
     Serial.println(buf);
   #endif
 }
@@ -88,6 +83,11 @@ void Display::displayAllDigits(bool clear_blink) {
       _displayDigit(i,_digits[i]);
     }
   }
+  #ifdef DEBUG
+    char buf[48];
+    sprintf(buf, "Display::displayalldigits  %d %d %d %d", _digits[0], _digits[1], _digits[2], _digits[3]);
+    Serial.println(buf);
+  #endif
 }
 
 // blinking a new digit will implicitly turn off blink on others
