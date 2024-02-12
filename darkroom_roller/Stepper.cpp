@@ -93,20 +93,20 @@ void Stepper::update() {
    }
 
 
-   // if one cycle of rotations is complete...
-   if (stepper.distanceToGo() < 10) {
+   // // if one cycle of rotations is complete...
+   // if (stepper.distanceToGo() < 10) {
 
-      Buzzer::buzz(BUZZ_S);
+   //    Buzzer::buzz(BUZZ_S);
 
-      #ifdef DEBUG
-         Serial.println("Stepper: cycle");
-      #endif DEBUG
+   //    #ifdef DEBUG
+   //       Serial.println("Stepper: cycle");
+   //    #endif DEBUG
 
-      //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
-      stepper.setMaxSpeed(-_target_speed); 
-      _cycle_steps = _get_cycle_steps();
-      stepper.move(_cycle_steps);
-   }
+   //    //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
+   //    stepper.setMaxSpeed(-_target_speed); 
+   //    _cycle_steps = _get_cycle_steps();
+   //    stepper.move(_cycle_steps);
+   // }
 }
 
 void Stepper::_sleep(bool b) {
@@ -123,7 +123,7 @@ void Stepper::_sleep(bool b) {
 
    #ifdef DEBUG
       char buf[24];
-      sprintf(buf, "Stepper:sleep %b", b);
+      sprintf(buf, "Stepper:sleep %s", b ? "true" : "false");
       Serial.println(buf);
    #endif DEBUG
 }
