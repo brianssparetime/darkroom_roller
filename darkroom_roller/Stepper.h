@@ -23,6 +23,8 @@ class Stepper {
         static AccelStepper* _stepper;
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static bool _random; 
+        static bool _wait_to_sleep; 
+        static bool _asleep; 
 
 
         // adjust based on tube size
@@ -36,7 +38,7 @@ class Stepper {
         static const uint8_t _cycle_drum_rotations = 1;
 
         static const float _max_speed = 800;
-        static float _actual_speed;
+        static float _target_speed;
         static uint8_t _cycle_steps;
 };
 

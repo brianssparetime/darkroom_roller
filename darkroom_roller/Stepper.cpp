@@ -6,13 +6,15 @@
 #include "Tilt.h"
 #include "Buzzer.h"
 
-
+// AccelStepper::DRIVER
 AccelStepper stepper(1, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
 uint8_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
-float Stepper::_actual_speed = 0;
+float Stepper::_target_speed = 0;
 bool Stepper::_random = false;
+bool Stepper::_wait_to_sleep = false;
+bool Stepper::_asleep = false;
 
 
 #define DEBUG
@@ -20,7 +22,8 @@ bool Stepper::_random = false;
 void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
    stepper.setMaxSpeed(800);
-   //stepper.setAcceleration(20); // TESTING -- retry this with good connectors
+   stepper.setAcceleration(200); // TESTING -- retry this with good connectors
+   stepper.setCurrentPosition(0);
    _sleep(true);
    //randomSeed(analogRead(A6));
    randomSeed(3434UL); // TODO replace with unused analog pin -- A6 seems ok
@@ -34,11 +37,13 @@ void Stepper::go() {
       _ratio = _small_drum_ratio;
    }
    _cycle_steps = _get_cycle_steps();
-   _actual_speed = _ratio * _steps_per_wheel_rotation;
+   _target_speed = _ratio * _steps_per_wheel_rotation;
+   stepper.setMaxSpeed(_target_speed);
+
    _sleep(false); // awaken
-   stepper.setCurrentPosition(0);
-   stepper.setSpeed(_actual_speed);
-   stepper.runSpeed();
+
+   //stepper.setCurrentPosition(0);
+   stepper.move(_cycle_steps); // relative to current position
 
       #ifdef DEBUG
          Serial.println("Stepper: go");
@@ -65,11 +70,31 @@ uint16_t Stepper::_get_cycle_steps() {
 
 
 void Stepper::update() {
-   stepper.runSpeed();
 
-   
+   if(_asleep) {
+      return;
+   }
+
+   stepper.run();
+
+   // check for sleep
+   if(_wait_to_sleep && ! stepper.isRunning()) {
+      stepper.disableOutputs();
+      delay(20);
+      digitalWrite(ST_SLP, LOW); // put driver to sleep
+      _wait_to_sleep = false;
+      _asleep = true;
+
+      #ifdef DEBUG
+         char buf[24];
+         sprintf(buf, "Stepper: sleeping...");
+         Serial.println(buf);
+      #endif DEBUG
+   }
+
+
    // if one cycle of rotations is complete...
-   if (stepper.currentPosition() > _cycle_steps) {
+   if (stepper.distanceToGo() < 10) {
 
       Buzzer::buzz(BUZZ_S);
 
@@ -77,27 +102,37 @@ void Stepper::update() {
          Serial.println("Stepper: cycle");
       #endif DEBUG
 
-      stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
-      stepper.setSpeed(-_actual_speed); 
+      //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
+      stepper.setMaxSpeed(-_target_speed); 
       _cycle_steps = _get_cycle_steps();
-      stepper.runSpeed();
+      stepper.move(_cycle_steps);
    }
-   
 }
 
 void Stepper::_sleep(bool b) {
    if(b) {
-      delay(100); // to let A4988 reawaken
-      digitalWrite(ST_SLP, LOW); // put driver to sleep
+      if( ! _asleep) {
+         _wait_to_sleep = true;
+      }
    } else {
       digitalWrite(ST_SLP, HIGH); // awaken driver 
       delay(100); // to let A4988 reawaken
+      stepper.enableOutputs();
+      _asleep = false;
    }
+
+   #ifdef DEBUG
+      char buf[24];
+      sprintf(buf, "Stepper:sleep %b", b);
+      Serial.println(buf);
+   #endif DEBUG
 }
 
 void Stepper::stop() {
    stepper.stop();
+   stepper.runToPosition(); // this blocks until stopped
    _sleep(true);
 }
 
 
+// https://hackaday.io/project/183279-accelstepper-the-missing-manual/details
