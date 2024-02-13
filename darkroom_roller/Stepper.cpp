@@ -86,7 +86,7 @@ void Stepper::update() {
    if ( iii % 16 == 0) {
       #ifdef DEBUG
          char buf[64];
-         sprintf(buf, "Stepper:update cp = %l tp = %l dtg = %l", \
+         sprintf(buf, "Stepper:update cp = %ld tp = %ld dtg = %ld", \
              stepper.currentPosition(), stepper.targetPosition(), stepper.distanceToGo());
              // all three are signed longs
          Serial.println(buf);
