@@ -83,7 +83,7 @@ void Stepper::update() {
       return;
    }
 
-   if ( iii == 0) {
+   if ( iii % 64 == 0) {
       #ifdef DEBUG
          char buf[48];
          sprintf(buf, "Stepper:update cp = %lu tp = %lu", stepper.currentPosition(), stepper.targetPosition());
@@ -109,7 +109,8 @@ void Stepper::update() {
       //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
       //stepper.setMaxSpeed(_target_speed); 
       _cycle_steps = _get_cycle_steps();
-      stepper.move(-_cycle_steps);
+      signed long x = 5 - _cycle_steps;
+      stepper.move(x);
    }
 }
 
