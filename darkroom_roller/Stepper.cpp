@@ -15,6 +15,7 @@ float Stepper::_target_speed = 0;
 bool Stepper::_random = false;
 bool Stepper::_wait_to_sleep = false;
 bool Stepper::_asleep = false;
+uint8_t Stepper::iii = 0;
 
 
 #define DEBUG
@@ -31,6 +32,7 @@ void Stepper::init() {
 
 
 void Stepper::go() {
+   iii = 0;
    _awaken();
    if( Tilt::getStatus() ) { 
       _ratio = _big_drum_ratio;
@@ -81,23 +83,18 @@ void Stepper::update() {
       return;
    }
 
-   stepper.run();
-
-   // check for sleep
-   if(_wait_to_sleep && ! stepper.isRunning()) {
-      stepper.disableOutputs();
-      delay(20);
-      digitalWrite(ST_SLP, LOW); // put driver to sleep
-      _wait_to_sleep = false;
-      _asleep = true;
-
+   if ( iii == 0) {
       #ifdef DEBUG
-         char buf[24];
-         sprintf(buf, "Stepper: sleeping...");
+         char buf[48];
+         sprintf(buf, "Stepper:update cp = %lu tp = %lu", stepper.currentPosition(), stepper.targetPosition());
          Serial.println(buf);
-      #endif DEBUG
-   }
+      #endif 
 
+   }
+   iii ++; // overflow intentional
+
+
+   stepper.run();
 
 
    // if one cycle of rotations is complete...
@@ -116,17 +113,7 @@ void Stepper::update() {
    }
 }
 
-void Stepper::_sleep() {
-   if( ! _asleep) {
-      _wait_to_sleep = true;
-   }
 
-   #ifdef DEBUG
-      char buf[24];
-      sprintf(buf, "Stepper:sleep");
-      Serial.println(buf);
-   #endif DEBUG
-}
 
 
 void Stepper::_awaken() {
@@ -138,15 +125,37 @@ void Stepper::_awaken() {
 
    #ifdef DEBUG
       char buf[24];
-      sprintf(buf, "Stepper:awaken");
+      sprintf(buf, "Stepper: awaken");
       Serial.println(buf);
    #endif DEBUG
 }
 
+void Stepper::_sleep() {
+   delay(20);
+   stepper.disableOutputs();
+   delay(20);
+   digitalWrite(ST_SLP, LOW); // put driver to sleep
+   _wait_to_sleep = false;
+   _asleep = true;
+
+   #ifdef DEBUG
+      char buf[24];
+      sprintf(buf, "Stepper: sleeping...");
+      Serial.println(buf);
+   #endif DEBUG
+}
+
+
 void Stepper::stop() {
+   #ifdef DEBUG
+      Serial.println("Stepper: stopping");
+   #endif DEBUG
    stepper.stop();
    stepper.runToPosition(); // this blocks until stopped
    _sleep();
+   #ifdef DEBUG
+      Serial.println("Stepper: fully stopped");
+   #endif DEBUG
 }
 
 
