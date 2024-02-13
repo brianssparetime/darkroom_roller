@@ -7,7 +7,7 @@
 #include "Buzzer.h"
 
 // AccelStepper::DRIVER
-AccelStepper stepper(1, ST_STEP, ST_DIR);
+AccelStepper stepper(AccelStepper::FULL4WIRE, ST_STEP, ST_DIR);
 AccelStepper* Stepper::_stepper = &stepper;
 uint16_t Stepper::_cycle_steps = 0;
 float Stepper::_ratio = 1;
@@ -109,7 +109,7 @@ void Stepper::update() {
       //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
       //stepper.setMaxSpeed(_target_speed); 
       _cycle_steps = _get_cycle_steps();
-      signed long x = 5 - _cycle_steps;
+      signed long x = 5L - _cycle_steps;
       stepper.move(x);
    }
 }
