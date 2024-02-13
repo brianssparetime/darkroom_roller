@@ -99,6 +99,7 @@ void Stepper::update() {
    stepper.run();
 
 
+
    // if one cycle of rotations is complete...
    if (!stepper.isRunning()) {
 
