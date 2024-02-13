@@ -100,7 +100,7 @@ void Stepper::update() {
 
 
    // if one cycle of rotations is complete...
-   if (stepper.distanceToGo() < 1) {
+   if (!stepper.isRunning()) {
 
       Buzzer::buzz(BUZZ_S);
 
