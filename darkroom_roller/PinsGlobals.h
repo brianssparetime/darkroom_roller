@@ -38,6 +38,6 @@
 namespace Globals {
     //uint8_t maxes at 255
 
-    static const uint8_t default_interval = 60; // seconds
+    static const uint8_t default_interval = 75; // seconds
 
 }

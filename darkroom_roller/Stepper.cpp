@@ -62,15 +62,15 @@ void Stepper::go() {
 int16_t Stepper::_get_cycle_steps() {
    int16_t cycle_steps = _cycle_drum_rotations * _ratio * _steps_per_wheel_rotation;
 
-   // if (_random) {
-   // cycle_steps += ( random(0,cycle_steps - 15) - (cycle_steps / 2));
-   // }
+   if (_random) {
+      cycle_steps += random(0,cycle_steps);
+      // #ifdef DEBUG
+      //    char buf[48];
+      //    sprintf(buf, "Stepper:set_cycle_steps - steps set to %d", cycle_steps);
+      //    Serial.println(buf);
+      // #endif 
+   }
 
-   // #ifdef DEBUG
-   //    char buf[48];
-   //    sprintf(buf, "Stepper:set_cycle_steps - steps set to %d", cycle_steps);
-   //    Serial.println(buf);
-   //  #endif 
 
     return cycle_steps;
 }
@@ -83,6 +83,8 @@ void Stepper::update() {
       return;
    }
 
+
+   //debug accounting
    if ( iii % 16 == 0) {
       #ifdef DEBUG
          char buf[64];
@@ -111,7 +113,18 @@ void Stepper::update() {
 
       //stepper.setCurrentPosition(0); // this sets speed to zero as a side effect
       //stepper.setMaxSpeed(_target_speed); 
-      _cycle_steps = 0L - _cycle_steps;
+      
+
+      if(!_random) {
+         _cycle_steps = 0L - _cycle_steps;
+      }  else {
+         if(_cycle_steps >= 0) {
+            _cycle_steps = 0L - _get_cycle_steps();
+         } else {
+            _cycle_steps = _get_cycle_steps();
+         }
+      }
+
       stepper.move(_cycle_steps);
    }
 }

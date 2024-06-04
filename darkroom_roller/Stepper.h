@@ -35,7 +35,7 @@ class Stepper {
         static float _ratio;
         static const float _big_drum_ratio = 1.8;
         static const float _small_drum_ratio = 1.2;
-        static const uint8_t _cycle_drum_rotations = 1;
+        static const uint8_t _cycle_drum_rotations = 2;
 
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static const float _max_speed = 800;
