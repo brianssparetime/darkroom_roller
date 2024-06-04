@@ -101,7 +101,10 @@ void UI_Welcome::update() {
 /*********** UI_Interval_Set *************/
 
 
-uint8_t UI_Interval_Set::_edit_values[] = {1,0,0};  // mm ss s
+//uint8_t UI_Interval_Set::_edit_values[] = {1,0,0};  // mm ss s
+uint8_t UI_Interval_Set::_edit_values[] = {Globals::default_interval / 60,
+                                            (Globals::default_interval % 60) / 10 ,
+                                            (Globals::default_interval % 60) % 10 };
 
 void UI_Interval_Set::activate() {
     Buzzer::buzz(BUZZ_L);
