@@ -25,11 +25,13 @@
 #define DISP_CLK A2
 #define DISP_DIO A3
 
-// leds
-#define LED_A 2
-#define LED_B 3
-#define LED_C 4
-#define NUM_LEDS 3
+// random seed - A6
+
+
+// #define LED_A 2
+// #define LED_B 3
+// #define LED_C 4
+// #define NUM_LEDS 3
 
 
 #define MAX_INTERVAL 3600 // 1 hour; in seconds

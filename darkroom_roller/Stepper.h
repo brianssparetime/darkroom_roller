@@ -13,8 +13,11 @@ class Stepper {
         static void stop();
         static void rotation();
 
+        
+        static const uint8_t _step_size = 1; // 1/x, where 1 is fulls teps, 2 is half, 4 is 1/4 stepping...
+
         // for Nema 17 + a4988 / drv8825 at full stepping
-        static const uint16_t _steps_per_wheel_rotation = 200; // in steps/sec
+        static const uint16_t _steps_per_wheel_rotation = 200 * _step_size; // in steps/sec
 
 
     private:
@@ -35,13 +38,14 @@ class Stepper {
         static float _ratio;
         static const float _big_drum_ratio = 1.8;
         static const float _small_drum_ratio = 1.2;
-        static const uint8_t _cycle_drum_rotations = 2;
+        static const uint8_t _cycle_drum_rotations = 3;
 
         // speeds > 1000 are unreliable (note from AccelStepper docs)
         static const float _max_speed = 800;
         static float _target_speed;
         static int16_t _cycle_steps;
-        
+
+        // debug 
         static uint8_t iii;
 };
 

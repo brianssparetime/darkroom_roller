@@ -24,10 +24,10 @@ void Stepper::init() {
    pinMode(ST_SLP, OUTPUT);
    //stepper.setCurrentPosition(0);
    stepper.setMaxSpeed(800);
-   stepper.setAcceleration(200); // TESTING -- retry this with good connectors
+   stepper.setAcceleration(200); 
    _sleep();
-   //randomSeed(analogRead(A6));
-   randomSeed(3434UL); // TODO replace with unused analog pin -- A6 seems ok
+   randomSeed(analogRead(A6));
+   //randomSeed(3434UL); // old static seed
 }
 
 
