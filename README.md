@@ -7,7 +7,7 @@ longer (since it's not sitting open to the air).  Bonus, you're not smelling a t
 
 I've been using Ilford Cibachrome drums, but the more expensive Jobo drums work too.
 
-![Cibachrome drums in 8x10 and 11x14](img/Cibachrome%20drums.jpg |width=100)
+![Cibachrome drums in 8x10 and 11x14](img/Cibachrome%20drums.jpg)
 
 This processor is open source, easy to assemble, and easy to use.  All electronics sit on the top,
 so the base of the processor can easily be submerged in a tub and used with a sous-vide heater for
