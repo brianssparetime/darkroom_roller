@@ -33,6 +33,17 @@ seconds, 1x minutes).
  - For 8x10 and 11x14 Ilford drums, spacing between the casters is ___ and for the 16x20 Ilford drum or the Jobo drums, spacing is ___.
  - I mounted one row of the casters with magnets, so it can easily be moved and locked into position.
 
+More generally, to solve for the distance between the bottom-most part of the drum and the surface, with:
+ - R is your drum radius
+ - c is your caster radius
+ - h is the height of the caster from plate to center of the wheel
+ - d is half the distance between the the casters
+ - k is the clearance between the surface and the bottom-most point of your drum
+
+then the clearance of the drum over the table (k) is equal to sqrt (  (r+c)^2 + (r+k-h)^2 )
+
+![caster geometry](img/caster%20geometry.jpeg)
+
 You could of course stop here and just rotate the drum by hand, but what fun is that?
 
 ## Additional Hardware (for electronic operation):
