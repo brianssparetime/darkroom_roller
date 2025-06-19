@@ -12,5 +12,11 @@ Version 2 board (2023-08-__):
    - moved ST-STEP from A5 (needed for i2c) to D10
  - added trace from A4988's reset to 5v
  - added PU resistor and debounce cap for pin A5 / SDA to use it as a start button
-
  - updated version number
+
+Version 3 board (2025)
+ - only 1 LED, D3 and D4 now availble for other use with 3 pin plugs
+ - increased resistor size in label for buzzer to make it quieter
+ - microstepping support added (MS1 -> D11, MS2 -> D13, MS3 -> D12)
+ - updated version number and date
+
