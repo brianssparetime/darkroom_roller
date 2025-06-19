@@ -40,7 +40,7 @@ More generally, to solve for the distance between the bottom-most part of the dr
  - d is half the distance between the the casters
  - k is the clearance between the surface and the bottom-most point of your drum
 
-then the clearance of the drum over the table (k) is equal to sqrt (  (r+c)^2 + (r+k-h)^2 )
+then the distance from the centerline to the roller/caster centers is equal to  sqrt ( (r+c)^2 + (r+k-h)^2 )
 
 ![caster geometry](img/caster%20geometry.jpeg)
 
