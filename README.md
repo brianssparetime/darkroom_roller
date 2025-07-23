@@ -62,12 +62,26 @@ Connected to the Arduino via the custom pcb are:
  - TM1637 4 digit 7 segment display
  - KY-040 rotary encoder
  - A4988 or DRV8825 stepper driver
- - piezo buzzer
+ - option for piezo buzzer and/or led 
  - Nema 17 stepper motor
- - a few resistors and caps 
+ - LM7805 voltage regulator
+ - a few resistors and caps
+   - one 470 uF filtering cap for the stepper driver
+   - three 10k resistors for the rotary encoder
+   -  one 330 for the led 
+   -  one 330 for the piezo
+   -  _____
 
 All soldering is through-hole, and can be done with a simple soldering iron in about 20 minutes.
 
+### power
+
+The voltage regulator should work fine with wall wart power supplies in the 9-12v range.
+
+The supply should also have sufficient amperage to run the stepper.  I'm using a ____.
+
+Rather that mess around with connector sizes and polarity, just cut the end off your power cord and 
+solder it onto the PCB.  Check polarity with a multimeter.
 
 ## Software
 
