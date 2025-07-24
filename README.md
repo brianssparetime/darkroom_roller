@@ -9,9 +9,15 @@ I've been using Ilford Cibachrome drums, but the more expensive Jobo drums work 
 
 ![Cibachrome drums in 8x10 and 11x14](img/Cibachrome%20drums.jpg)
 
-This processor is open source, easy to assemble, and easy to use.  All electronics sit on the top,
-so the base of the processor can easily be submerged in a tub and used with a sous-vide heater for
-temperature controlled color processing/developing.
+This processor is open source, easy to assemble, and easy to use.  
+
+All electronics sit on the top, so the base of the processor can easily be 
+submerged in a tub and used with an independent sous-vide heater for temperature controlled 
+color processing/developing.  
+
+A stepper motor and rollerblade wheel drive the drum from above, on a hinged arm.  Speed is about 
+60-75 rpm.  A tilt switch automatically detects drum size (4" or 6"), and adjusts rotation speed to 
+match.  Different drum sizes and rotation speeds easily configurable in code.
 
 The entire project can be assembled on a low budget (< $100), and probably a lot less if you 
 have any this stuff lying around.
@@ -24,7 +30,7 @@ seconds, 1x minutes).
  - Rotating the encoder changes the value of the selected digit
  - Long press starts the rotary cycle
  - Any control input while running causes it to stop.
- - Tilt switch automatically detects drum size, and adjusts rotation speed to match
+
 
 
 ## Hardware (non-electronic):
@@ -58,21 +64,26 @@ You could of course stop here and just rotate the drum by hand, but what fun is 
 The heart of the project is an old-school 5v Arduino Nano.
 
 Connected to the Arduino via the custom pcb are:
-
+ - Arduino Nano 5v (the old one with old usb-mini plugs)
  - TM1637 4 digit 7 segment display
  - KY-040 rotary encoder
- - A4988 or DRV8825 stepper driver
- - option for piezo buzzer and/or led 
+ - A4988 (or DRV8825) stepper driver
  - Nema 17 stepper motor
  - LM7805 voltage regulator
- - a few resistors and caps
-   - one 470 uF filtering cap for the stepper driver
-   - three 10k resistors for the rotary encoder
-   -  one 330 for the led 
-   -  one 330 for the piezo
-   -  _____
+ - one 470 uF filtering cap for the stepper driver
+ - three 10k resistors for the rotary encoder
 
-All soldering is through-hole, and can be done with a simple soldering iron in about 20 minutes.
+
+Some optional components you can choose to populate or not on the board are:
+ - LED (and 330 ohm resistor), which blinks on completion
+ - piezo beeper (and 330 ohm resistor), which beeps on completion
+ - tilt sensor for detecting two different drum sizes
+ - (4) 470nF capacitors, to help with debounce, although software debounce is pretty good
+ - (currently unused) header for i2c (and 10k resistor), available for additional sensors and/or future expansion
+ - (currently unused) 2 extra 3-pin header for D3 and D4 (each with vcc and ground pins), available for additional sensors and/or future expansion
+
+
+All soldering is through-hole, and can be done with a simple soldering iron in about 15-20 minutes.
 
 ### power
 
@@ -86,7 +97,7 @@ solder it onto the PCB.  Check polarity with a multimeter.
 ## Software
 
 Code is based on my [PlantWaterBot](https://github.com/brianssparetime/PlantWaterBot), using a state machine and separate files for each
-sensor/device to keep things organized and extendable.
+sensor/device to keep things organized, understandable, and extendable.
 
 
 ## Build your own?
