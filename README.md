@@ -74,18 +74,22 @@ Connected to the Arduino via the custom pcb are:
  - three 10k resistors for the rotary encoder
 
 
-Some optional components you can choose to populate or not on the board are:
+### Optional components:  
+
+These aren't required, but exist on the PCB and are supported in code:
  - LED (and 330 ohm resistor), which blinks on completion
  - piezo beeper (and 330 ohm resistor), which beeps on completion
  - tilt sensor for detecting two different drum sizes
- - (4) 470nF capacitors, to help with debounce, although software debounce is pretty good
- - (currently unused) header for i2c (and 10k resistor), available for additional sensors and/or future expansion
- - (currently unused) 2 extra 3-pin header for D3 and D4 (each with vcc and ground pins), available for additional sensors and/or future expansion
+ - (4) 470nF capacitors, originally to help with debounce, although software debounce is now pretty good and these aren't needed
+
+ Not supported in code, but available on the PCB for future use or extension:
+ - header for i2c (and 10k resistor), available for additional sensors and/or future expansion
+ - 2 extra 3-pin header for D3 and D4 (each with vcc and ground pins), available for additional sensors and/or future expansion
 
 
 All soldering is through-hole, and can be done with a simple soldering iron in about 15-20 minutes.
 
-### power
+### Power Supply:
 
 The voltage regulator should work fine with wall wart power supplies in the 9-12v range.
 
