@@ -27,11 +27,13 @@
 
 // random seed - A6
 
+// microstepping
+#define MS1 11
+#define MS2 13
+#define MS3 12
 
-// #define LED_A 2
-// #define LED_B 3
-// #define LED_C 4
-// #define NUM_LEDS 3
+
+// unused pins:   D4 and D3
 
 
 #define MAX_INTERVAL 3600 // 1 hour; in seconds

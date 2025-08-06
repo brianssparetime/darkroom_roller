@@ -4,7 +4,7 @@
 #include "Stepper.h"
 #include "Arduino.h"
 #include "Tilt.h"
-#include "Buzzer.h"
+#include "buzzer.h"
 
 // AccelStepper::DRIVER
 AccelStepper stepper(1, ST_STEP, ST_DIR);

@@ -58,6 +58,14 @@ void setup() {
     Serial.println("online");
   #endif
 
+  // microstepping off
+  pinMode(MS1, OUTPUT);
+  pinMode(MS2, OUTPUT);
+  pinMode(MS3, OUTPUT);
+  digitalWrite(MS1, LOW);
+  digitalWrite(MS2, LOW);
+  digitalWrite(MS3, LOW);
+
 
   // rotary encoder
   EncoderInterrupt.begin( &encoder );
