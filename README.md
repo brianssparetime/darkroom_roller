@@ -91,9 +91,9 @@ All soldering is through-hole, and can be done with a simple soldering iron in a
 
 ### Power Supply:
 
-The voltage regulator should work fine with wall wart power supplies in the 9-12v range.
+The voltage regulator should work fine with power supplies in the 9-12v range, BUT the supply should also have sufficient amperage to run the stepper!  
 
-The supply should also have sufficient amperage to run the stepper.  I'm using a ____.
+I'm using a 12 volt 4 amp supply - I would not recommend using less.
 
 Rather that mess around with connector sizes and polarity, just cut the end off your power cord and 
 solder it onto the PCB.  Check polarity with a multimeter.
