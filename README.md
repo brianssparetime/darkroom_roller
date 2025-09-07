@@ -5,6 +5,8 @@ rotary or drum processor uses a single light-tight drum for all processes.  This
 especially as the print size scales, uses less chemistry, and preserves that chemistry for
 longer (since it's not sitting open to the air).  Bonus, you're not smelling a tray of fixer.
 
+![roller_machine](img/IMG_9899_l.jpeg)
+
 I've been using Ilford Cibachrome drums, but the more expensive Jobo drums work too.
 
 ![Cibachrome drums in 8x10 and 11x14](img/Cibachrome%20drums.jpg)
@@ -14,6 +16,10 @@ This processor is open source, easy to assemble, and easy to use.
 All electronics sit on the top, so the base of the processor can easily be 
 submerged in a tub and used with an independent sous-vide heater for temperature controlled 
 color processing/developing.  
+
+![roller_machine2](img/IMG_9900_l.jpeg)
+
+![roller_machine3](img/IMG_9901_l.jpeg)
 
 A stepper motor and rollerblade wheel drive the drum from above, on a hinged arm.  Speed is about 
 60-75 rpm.  A tilt switch automatically detects drum size (4" or 6"), and adjusts rotation speed to 
