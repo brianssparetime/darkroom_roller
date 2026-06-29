@@ -67,10 +67,9 @@ You could of course stop here and just rotate the drum by hand, but what fun is 
 
 ## Electronics:
 
-The heart of the project is an old-school 5v Arduino Nano.
+The heart of the project is an old-school 5v Arduino Nano (the old one with old usb-mini plugs).
 
 Connected to the Arduino via the custom pcb are:
- - Arduino Nano 5v (the old one with old usb-mini plugs)
  - TM1637 4 digit 7 segment display
  - KY-040 rotary encoder
  - A4988 (or DRV8825) stepper driver
