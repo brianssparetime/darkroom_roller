@@ -37,7 +37,7 @@ seconds, 1x minutes).
  - Long press starts the rotary cycle
  - Any control input while running causes it to stop.
 
-
+https://github.com/user-attachments/assets/8b5bbcb9-9cb8-4b09-9979-d4ac669b114a
 
 ## Hardware (non-electronic):
 
