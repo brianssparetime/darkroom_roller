@@ -113,7 +113,7 @@ All soldering is through-hole, and can be done with a simple soldering iron in a
 
 The voltage regulator should work fine with power supplies in the 9-12v range, BUT the supply should also have sufficient amperage to run the stepper!  
 
-**I'm using a 12 volt 4 amp supply - I would NOT recommend using less, or you may have issues with motor uneveness. **
+**I'm using a 12 volt 4 amp supply - I would NOT recommend using less, or you may have issues with motor uneveness.**
 
 Rather that mess around with connector sizes and polarity, just cut the end off your power cord and 
 solder it onto the PCB.  Check polarity with a multimeter.
