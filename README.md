@@ -26,7 +26,7 @@ A stepper motor and rollerblade wheel drive the drum from above, on a hinged arm
 match.  Different drum sizes and rotation speeds easily configurable in code.
 
 The entire project can be assembled on a low budget (< $100), and probably a lot less if you 
-have any this stuff lying around.
+have any of this stuff lying around.
 
 
 ## Usage:
@@ -113,9 +113,9 @@ All soldering is through-hole, and can be done with a simple soldering iron in a
 
 The voltage regulator should work fine with power supplies in the 9-12v range, BUT the supply should also have sufficient amperage to run the stepper!  
 
-**I'm using a 12 volt 4 amp supply - I would NOT recommend using less, or you may have issues with motor uneveness.**
+**I'm using a 12 volt 4 amp supply - I would NOT recommend using less, or you may have issues with motor unevenness.**
 
-Rather that mess around with connector sizes and polarity, just cut the end off your power cord and 
+Rather than mess around with connector sizes and polarity, just cut the end off your power cord and 
 solder it onto the PCB.  Check polarity with a multimeter.
 
 ## Software
