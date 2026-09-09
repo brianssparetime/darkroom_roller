@@ -32,3 +32,6 @@
 *.app
 
 **/.DS_Store
+
+# Working photos, not for publication
+img/temp/

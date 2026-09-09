@@ -41,20 +41,33 @@ seconds, 1x minutes).
 
 ## Hardware (non-electronic):
 
- - [1.5 inch casters](https://www.amazon.com/gp/product/B09V74CMRQ/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) mounted to a board.
- - For 8x10 and 11x14 Ilford drums, spacing between the casters is ___ and for the 16x20 Ilford drum or the Jobo drums, spacing is ___.
- - I mounted one row of the casters with magnets, so it can easily be moved and locked into position.
+ - [1.5 inch casters](https://www.amazon.com/gp/product/B09V74CMRQ/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) mounted to a base board.
 
-More generally, to solve for the distance between the bottom-most part of the drum and the surface, with:
- - R is your drum radius
- - c is your caster radius
- - h is the height of the caster from plate to center of the wheel
- - d is half the distance between the the casters
- - k is the clearance between the surface and the bottom-most point of your drum
 
-then the distance from the centerline to the roller/caster centers (d) is equal to sqrt ( (r+c)^2 + (r+k-h)^2 )
+### Caster Spacing (and space underneath the drum)
 
-![caster geometry](img/caster%20geometry.jpeg)
+You need the casters close together enough that the drum doesn't bottom out, yet far enough apart to be stable.  
+
+If you're expecting to submerge this in water, you want enough water height to maintain temperature stability, but not so much that raising and lowering its temperature is time consuming.
+
+And if you want to use different sized drums, you may want to make the spacing between your casters variable.  I did this by mounting the casters on 3/4 plywood rails, which can fit onto one of two rows of magnets/pegs on the base board.  
+
+
+![rails](img/IMG_3008_l.jpeg)
+
+More generally, if we label our measurements:
+ - R is your drum radius (2" for the smaller 4" Ilford drums, 3" for the larger 6" Ilford or Jobo drums)
+ - c is your caster radius (3/4" here)
+ - h is the height of the caster from caster base to the center of the axle of the wheel (on my caster, about 1 1/8")
+ - d is half the distance between the casters
+ - k is the clearance between the bottom-most point of your drum and the caster's base plane
+
+You can solve for d (half distance between casters) as d = sqrt ( (R+c)^2 - (R+k-h)^2 ).  
+
+![caster geometry](img/caster_geometry.jpeg)
+
+Not being concerned with submersion for now, I set k=0 so the only bottom clearance was the height of rails.  I spaced the casters about 5 1/4 inches (center to center) for 8x10 and 11x14 Ilford drums, and for the 16x20 Ilford drum or the Jobo drums, 6 1/2 inches.  
+
 
 You could of course stop here and just rotate the drum by hand, but what fun is that?
 
@@ -78,6 +91,8 @@ Connected to the Arduino via the custom pcb are:
  - one 470 uF filtering cap for the stepper driver
  - three 10k resistors for the rotary encoder
 
+
+![roller_machine3](img/IMG_2071_l.jpeg)
 
 ### Optional components:  
 
